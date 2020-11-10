@@ -26,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
     Button webButton;
     static final int REQUEST_CODE_ENTRY = 0;
 
-    String s1[], s2[];
-    int images[] = {R.drawable.carnival_mask, R.drawable.cassette, R.drawable.computer, R.drawable.dinosaur, R.drawable.flamingo};
+    String[] s1;
+    String[] s2;
+    int[] images = {R.drawable.carnival_mask, R.drawable.cassette, R.drawable.computer, R.drawable.dinosaur, R.drawable.flamingo};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int rqCode, int rsCode, Intent data){
-        If(rqCode==REQUEST_CODE_ENTRY){
+        if(rqCode==REQUEST_CODE_ENTRY){
             if(rsCode==RESULT_OK){
                 Uri webpage = Uri.parse("https://www.google.com");
                 Intent webIntent = new Intent(Intent.ACTION_VIEW,webpage);
