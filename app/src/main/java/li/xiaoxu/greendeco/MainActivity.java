@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     Button webButton;
+    Button navtomap;
     static final int REQUEST_CODE_ENTRY = 0;
 
     String[] s1;
@@ -63,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
             onActivityResult(REQUEST_CODE_ENTRY,RESULT_OK,i);
             finish();
         });
+
+        //Implicit Intent to GI Website
+        navtomap = (Button) findViewById(R.id.navtomap);
+        navtomap.setOnClickListener((v)->{
+            Intent i2 = new Intent(MainActivity.this, MapsMarkerActivity.class);
+            startActivity(i2);
+        });
     }
 
     @Override
@@ -76,5 +84,7 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onActivityResult(rqCode, rsCode, data);
     }
+
+
 
 }
