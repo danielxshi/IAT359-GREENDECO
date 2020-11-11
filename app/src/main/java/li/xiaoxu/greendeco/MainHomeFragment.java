@@ -1,0 +1,93 @@
+package li.xiaoxu.greendeco;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+/*
+MainActivity:
+Glossary - RecyclerView
+(List of Words)
+ */
+public class MainHomeFragment extends Fragment {
+
+    private static final int RESULT_OK = -1;
+    RecyclerView recyclerView;
+    Button webButton;
+    static final int REQUEST_CODE_ENTRY = 0;
+
+    String[] s1;
+    String[] s2;
+    int[] images = {R.drawable.carnival_mask, R.drawable.cassette, R.drawable.computer, R.drawable.dinosaur, R.drawable.flamingo};
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_mainhome, container, false);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        BottomNavigationView navView = getView().findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_settings)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(getActivity(), navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
+
+        //Created by Daniel
+        //RecyclerView
+        recyclerView = getView().findViewById(R.id.my_RecyclerView);
+
+        s1 = getResources().getStringArray(R.array.card_icons);
+        s2 = getResources().getStringArray(R.array.description);
+
+        MyAdapter myAdapter = new MyAdapter(this, s1, s2, images);
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //Created by Daniel
+        //Implicit Intent to GI Website
+        webButton = (Button) getView().findViewById(R.id.web_Button);
+        webButton.setOnClickListener((v)->{
+            Intent i = new Intent();
+            onActivityResult(REQUEST_CODE_ENTRY,RESULT_OK,i);
+            getActivity().finish();
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int rqCode, int rsCode, Intent data){
+        if(rqCode==REQUEST_CODE_ENTRY){
+            if(rsCode==RESULT_OK){
+                Uri webpage = Uri.parse("https://www.google.com");
+                Intent webIntent = new Intent(Intent.ACTION_VIEW,webpage);
+                startActivity(webIntent);
+            }
+        }
+        super.onActivityResult(rqCode, rsCode, data);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+}

@@ -11,6 +11,12 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_home"-->
+<!--        android:name="li.xiaoxu.greendeco.MainActivity"-->
+<!--        android:label="@string/title_home"-->
+<!--        tools:layout="@layout/activity_main" />-->
+
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="li.xiaoxu.greendeco.ui.dashboard.DashboardFragment"
