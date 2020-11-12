@@ -1,16 +1,16 @@
-package li.xiaoxu.greendeco.ui.settings;
+package li.xiaoxu.greendeco.ui.gallery;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SettingsViewModel extends ViewModel {
+public class GalleryViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SettingsViewModel() {
+    public GalleryViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is settings fragment");
+        mText.setValue("This is gallery fragment");
     }
 
     public LiveData<String> getText() {

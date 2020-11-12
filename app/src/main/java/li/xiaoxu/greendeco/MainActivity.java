@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,8 +19,8 @@ Glossary - RecyclerView
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    Button webButton;
-    Button navtomap;
+    Button btn_nav_home;
+    Button btn_nav_map;
     static final int REQUEST_CODE_ENTRY = 0;
 
     String[] s1;
@@ -35,15 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_settings)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
 
         //Created by Daniel
         //RecyclerView
@@ -58,16 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
         //Created by Daniel
         //Implicit Intent to GI Website
-        webButton = (Button) findViewById(R.id.web_Button);
-        webButton.setOnClickListener((v)->{
+        btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
+        btn_nav_home.setOnClickListener((v)->{
             Intent i = new Intent();
             onActivityResult(REQUEST_CODE_ENTRY,RESULT_OK,i);
             finish();
         });
 
         //Implicit Intent to GI Website
-        navtomap = (Button) findViewById(R.id.navtomap);
-        navtomap.setOnClickListener((v)->{
+        btn_nav_map = (Button) findViewById(R.id.btn_nav_map);
+        btn_nav_map.setOnClickListener((v)->{
             Intent i2 = new Intent(MainActivity.this, MapsMarkerActivity.class);
             startActivity(i2);
         });

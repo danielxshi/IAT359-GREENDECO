@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="li.xiaoxu.greendeco">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -17,9 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GreenDeco">
         <activity
+            android:name=".NavigationDrawerActivity"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/Theme.GreenDeco.NoActionBar"></activity>
+        <activity
             android:name=".ItemListActivity"
             android:label="@string/title_item_list"
-            android:theme="@style/Theme.GreenDeco.NoActionBar"></activity>
+            android:theme="@style/Theme.GreenDeco.NoActionBar" />
         <activity
             android:name=".ItemDetailActivity"
             android:label="@string/title_item_detail"
