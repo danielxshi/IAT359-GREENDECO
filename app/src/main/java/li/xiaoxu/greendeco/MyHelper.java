@@ -14,7 +14,7 @@ public class MyHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE =
             "CREATE TABLE "+
                     Constants.TABLE_NAME + "(" +
-                    Constants.FID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    Constants.FID + " INTEGER, " +
                     Constants.ADDRESS + " TEXT, " +
                     Constants.TYPOLOGY + " TEXT, " +
                     Constants.DESCRIPTION + " TEXT);" ;
