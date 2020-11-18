@@ -21,6 +21,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     private SensorManager mySensorManager;
     private Sensor myLight;
     private Button button;
+    private Button button2;
 
     EditText name, email;
 
@@ -42,6 +43,12 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         email = (EditText)findViewById(R.id.editTextEmail);
 
         sharedpreferences = getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
+        String channel1 = (sharedpreferences.getString(Name, ""));
+        name.setText(channel1);
+
+        sharedpreferences = getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
+        String channel2 = (sharedpreferences.getString(Email, ""));
+        email.setText(channel2);
 
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener((v)->{
@@ -57,6 +64,17 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
+        });
+
+        button2 = (Button) findViewById(R.id.button2);
+        button2.setOnClickListener((v)->{
+
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+
+            Intent i = new Intent(this, SignupActivity.class);
+            startActivity(i);
+
         });
 
     }
