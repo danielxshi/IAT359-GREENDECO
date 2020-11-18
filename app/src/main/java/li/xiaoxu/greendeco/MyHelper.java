@@ -13,13 +13,13 @@ public class MyHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE =
             "CREATE TABLE "+
-                    Constants.TABLE_NAME + "(" +
+                    Constants.TABLE2_NAME + "(" +
                     Constants.FID + " INTEGER, " +
                     Constants.ADDRESS + " TEXT, " +
                     Constants.TYPOLOGY + " TEXT, " +
                     Constants.DESCRIPTION + " TEXT);" ;
 
-    private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.TABLE_NAME;
+    private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.TABLE2_NAME;
 
     public MyHelper(Context context){
         super (context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
