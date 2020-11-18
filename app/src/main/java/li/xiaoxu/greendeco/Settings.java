@@ -1,10 +1,13 @@
 package li.xiaoxu.greendeco;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +16,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager mySensorManager;
     private Sensor myLight;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,11 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
         mySensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         myLight = mySensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener((v)->{
+
+        });
 
     }
 
@@ -57,11 +66,4 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
     }
 
-//    private Button.OnClickListener myListener = new Button.OnClickListener() {
-//
-//        @Override
-//        public void onClick(View view) {
-//
-//        }
-//    };
 }
