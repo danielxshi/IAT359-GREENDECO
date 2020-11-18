@@ -3,6 +3,7 @@ package li.xiaoxu.greendeco;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +34,6 @@ public class SitesActivity extends Activity {
         db = new MyDatabase(this);
         helper = new MyHelper(this);
 
-
         ArrayList<String> mArrayList;
 
         Cursor cursor = db.getData();
@@ -56,7 +56,7 @@ public class SitesActivity extends Activity {
             mArrayList.add(s);
             cursor.moveToNext();
         }
-        db.getAllTheData();
+        db.getSitesData();
 
         myAdapter = new MyAdapter(mArrayList);
         myRecycler.setAdapter(myAdapter);
