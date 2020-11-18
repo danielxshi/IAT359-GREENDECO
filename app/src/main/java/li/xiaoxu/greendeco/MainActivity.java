@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         //Implicit Intent to settings
         btn_nav_map = (Button) findViewById(R.id.btn_nav_set);
         btn_nav_map.setOnClickListener((v)->{
-            Intent i2 = new Intent(this, Settings.class);
-            startActivity(i2);
+            Intent i = new Intent(this, Settings.class);
+            startActivity(i);
         });
     }
 
