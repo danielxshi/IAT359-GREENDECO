@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class Settings extends AppCompatActivity implements SensorEventListener {
+
     private SensorManager mySensorManager;
     private Sensor myLight;
 
@@ -40,13 +41,14 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         int type = event.sensor.getType();
 
         if(type == Sensor.TYPE_LIGHT) {
+
             float[] vals = event.values;
 
             EditText lightEditText;
 
             lightEditText = findViewById(R.id.lightEditText);
 
-            lightEditText.setText("Light: " + vals[0]);
+            lightEditText.setText("Light Sensor: " + vals[0]);
         }
     }
 
