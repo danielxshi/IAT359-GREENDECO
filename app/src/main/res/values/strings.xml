@@ -130,7 +130,7 @@
     <string name="option_get_place">Get place</string>
     <string name="pick_place">Choose a place</string>
 
-    <!--  RecyclerView  -->
+<!--  Old RecyclerView  -->
     <!--  Card Title  -->
     <string-array name="card_icons">
         <item>Carnival</item>
@@ -148,6 +148,9 @@
         <item>This is random descrip.</item>
         <item>This is random descrip.</item>
     </string-array>
+
+<!--  Old recyclerView  -->
+
     <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -167,5 +170,15 @@
     <string name="hello_world">Hello Square World!</string>
     <string name="welcome_msg">Welcome to GreenDeco</string>
 
+    <!--  Home page GI Information cards. Will only have (2) for now and be expanded later  -->
+    <string-array name="green_title">
+        <item>ABOUT US</item>
+        <item>Why GI is important</item>
+    </string-array>
+
+    <string-array name="educ_description">
+        <item>This is a random description</item>
+        <item>This is a random description</item>
+    </string-array>
     >>>>>>> Stashed changes
 </resources>

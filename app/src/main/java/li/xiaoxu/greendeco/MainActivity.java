@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /*
 MainActivity:
@@ -13,6 +15,12 @@ Glossary - RecyclerView
 (List of Words)
  */
 public class MainActivity extends AppCompatActivity {
+
+    //Recycler GI Education Cards
+    RecyclerView recyclerView;
+
+    String s1[], s2[];
+    int images[] = {R.drawable.home, R.drawable.content1};
 
     Button btn_nav_home;
     Button btn_nav_map;
@@ -23,7 +31,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Created by Daniel
+        //RecyclerView GI Education cards
+        recyclerView = findViewById(R.id.my_RecyclerView);
+
+        s1 = getResources().getStringArray(R.array.green_title);
+        s2 = getResources().getStringArray(R.array.educ_description);
+
+        HomeAdapter homeAdapter = new HomeAdapter(this, s1, s2, images);
+        recyclerView.setAdapter(homeAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //Implicit Intent to GI Website
         btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
         btn_nav_home.setOnClickListener((v)->{
