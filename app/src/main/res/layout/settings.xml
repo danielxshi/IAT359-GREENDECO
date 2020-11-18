@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Settings">
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".Settings"
+    android:background="#f0f4f3"
+    android:id="@+id/bigLayout">
 
         <EditText
             android:id="@+id/lightEditText"
