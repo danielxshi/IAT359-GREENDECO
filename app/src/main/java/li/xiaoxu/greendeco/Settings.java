@@ -14,14 +14,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 
 public class Settings extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager mySensorManager;
     private Sensor myLight;
-    private Button button;
-    private Button button2;
+    private Button button, button2, button3;
 
     EditText name, email;
 
@@ -75,6 +75,11 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
             Intent i = new Intent(this, SignupActivity.class);
             startActivity(i);
 
+        });
+
+        button3 = (Button) findViewById(R.id.button3);
+        button3.setOnClickListener((v)->{
+//            AppCompatDelegate.setDefaultNightMode();
         });
 
     }
