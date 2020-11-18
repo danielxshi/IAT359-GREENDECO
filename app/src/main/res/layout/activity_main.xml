@@ -51,6 +51,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="sites" />
+
+        <Button
+            android:id="@+id/btn_nav_set"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Settings" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

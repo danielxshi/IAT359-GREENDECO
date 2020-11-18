@@ -43,7 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyAdapter.MyViewHolder holder, int position) {
 
         String[]  results = (list.get(position).toString()).split(",");
-        if (results.length > 3) { //3 ,
+        if (results.length > 2) { //3 ,
             holder.addressTextView.setText(results[0]);
             holder.typologyTextView.setText(results[1]);
             holder.descriptionTextView.setText(results[2]);

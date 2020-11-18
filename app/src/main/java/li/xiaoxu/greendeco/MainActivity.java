@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btn_nav_home;
     Button btn_nav_map;
+    Button btn_nav_set;
     static final int REQUEST_CODE_ENTRY = 0;
 
     @Override
@@ -43,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
         btn_nav_map = (Button) findViewById(R.id.btn_nav_sites);
         btn_nav_map.setOnClickListener((v)->{
             Intent i = new Intent(this, SitesActivity.class);
+            startActivity(i);
+        });
+
+        //Implicit Intent to settings
+        btn_nav_set = (Button) findViewById(R.id.btn_nav_set);
+        btn_nav_set.setOnClickListener((v)->{
+            Intent i = new Intent(this, Settings.class);
             startActivity(i);
         });
     }
