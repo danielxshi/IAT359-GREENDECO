@@ -35,7 +35,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
     private RadioGroup radioGroup;
 
-    boolean auto;
+    boolean auto = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,6 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
         });
 
-        auto = false;
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
@@ -99,15 +98,11 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
                 if (null != rb && position == 0) {
                     auto = false;
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    finish();
-                    startActivity(getIntent());
                 }
 
                 if (null != rb && position == 1) {
                     auto = false;
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    finish();
-                    startActivity(getIntent());
                 }
 
                 if (null != rb && position == 2) {
@@ -140,7 +135,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
             float[] vals = event.values;
 
-            EditText lightEditText;
+//            EditText lightEditText;
 
 //            lightEditText = findViewById(R.id.lightEditText);
 
