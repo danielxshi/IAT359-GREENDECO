@@ -143,9 +143,9 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
             EditText lightEditText;
 
-            lightEditText = findViewById(R.id.lightEditText);
+//            lightEditText = findViewById(R.id.lightEditText);
 
-            lightEditText.setText("Light Sensor: " + vals[0]);
+//            lightEditText.setText("Light Sensor: " + vals[0]);
 
             if (auto == true) {
                 if (vals[0] > 10) {
