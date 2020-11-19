@@ -1,6 +1,7 @@
 package li.xiaoxu.greendeco;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -41,11 +43,17 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import java.util.Arrays;
 import java.util.List;
 
+import static li.xiaoxu.greendeco.MainActivity.REQUEST_CODE_ENTRY;
+
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
 public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback {
+
+    Button btn_nav_home;
+    Button btn_nav_map;
+    static final int REQUEST_CODE_ENTRY = 0;
 
     private static final String TAG = MapsMarkerActivity.class.getSimpleName();
     private GoogleMap map;
@@ -433,4 +441,5 @@ public class MapsMarkerActivity extends AppCompatActivity
         }
     }
     // [END maps_current_place_update_location_ui]
+
 }

@@ -8,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,14 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 
 public class Settings extends AppCompatActivity implements SensorEventListener {
+
+//    testing
+    private static final String TAG = "MyActivity";
+
+
+    Button btn_nav_home;
+    Button btn_nav_map;
+    static final int REQUEST_CODE_ENTRY = 0;
 
     private SensorManager mySensorManager;
     private Sensor myLight;
@@ -41,6 +50,34 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
+
+        //Implicit Intent to GI Website
+        btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
+        btn_nav_home.setOnClickListener((v)->{
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+        });
+
+        //Implicit Intent to GI Website
+        btn_nav_map = (Button) findViewById(R.id.btn_nav_map);
+        btn_nav_map.setOnClickListener((v)->{
+            Intent i = new Intent(this, MapsMarkerActivity.class);
+            startActivity(i);
+        });
+
+        //Implicit Intent to GI Website
+        btn_nav_map = (Button) findViewById(R.id.btn_nav_sites);
+        btn_nav_map.setOnClickListener((v)->{
+            Intent i = new Intent(this, SitesActivity.class);
+            startActivity(i);
+        });
+
+        //Implicit Intent to settings
+        btn_nav_map = (Button) findViewById(R.id.btn_nav_set);
+        btn_nav_map.setOnClickListener((v)->{
+            Intent i = new Intent(this, Settings.class);
+            startActivity(i);
+        });
 
         mySensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         myLight = mySensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -90,23 +127,28 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+
                 int radioButtonID = group.getCheckedRadioButtonId();
                 View radioButton = group.findViewById(radioButtonID);
                 int position = group.indexOfChild(radioButton);
 
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 if (null != rb && position == 0) {
-                    auto = false;
+//                    auto = false;
+                    Log.i(TAG, "position should be 0" + position);
+
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
 
                 if (null != rb && position == 1) {
-                    auto = false;
+                    Log.i(TAG, "position should be 1" + position);
+
+//                    auto = false;
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
 
                 if (null != rb && position == 2) {
-                    auto = true;
+//                    auto = true;
                 }
 
             }
@@ -117,7 +159,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     @Override
     protected void onResume() {
         super.onResume();
-        mySensorManager.registerListener(this, myLight, SensorManager.SENSOR_DELAY_NORMAL);
+//        mySensorManager.registerListener(this, myLight, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -129,11 +171,14 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     //Only called when the sensor is altered
     @Override
     public void onSensorChanged(SensorEvent event) {
+//        Log.i(TAG, "Auto is " + auto);
+
         int type = event.sensor.getType();
 
         if(type == Sensor.TYPE_LIGHT) {
 
             float[] vals = event.values;
+//            Log.i(TAG, "Light value in auto" + vals[0]);
 
 //            EditText lightEditText;
 
@@ -142,7 +187,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 //            lightEditText.setText("Light Sensor: " + vals[0]);
 
             if (auto == true) {
-                if (vals[0] > 10) {
+                if (vals[0] > 1000) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
                 else {
