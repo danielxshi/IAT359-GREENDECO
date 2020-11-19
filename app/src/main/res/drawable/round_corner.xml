@@ -3,6 +3,7 @@
         <solid android:color="#FFFFFF"/>
         <stroke
             android:color="#0FECFF" />
+<!--        <color android:color="?themes/colorOnPrimary"></color>-->
 
         <corners
             android:bottomRightRadius="0dp"
