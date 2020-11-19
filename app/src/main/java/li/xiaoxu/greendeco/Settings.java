@@ -10,7 +10,11 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +25,8 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager mySensorManager;
     private Sensor myLight;
-    private Button button, button2, button3;
+    private Button button, button2;
+    Button submit, clear;
 
     EditText name, email;
 
@@ -31,6 +36,10 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
     SharedPreferences sharedpreferences;
 
+    private RadioGroup radioGroup;
+
+    boolean auto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +48,8 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         mySensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         myLight = mySensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
-        name = (EditText)findViewById(R.id.editTextName);
-        email = (EditText)findViewById(R.id.editTextEmail);
+        name = (EditText) findViewById(R.id.editTextName);
+        email = (EditText) findViewById(R.id.editTextEmail);
 
         sharedpreferences = getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
         String channel1 = (sharedpreferences.getString(Name, ""));
@@ -51,7 +60,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         email.setText(channel2);
 
         button = (Button) findViewById(R.id.button);
-        button.setOnClickListener((v)->{
+        button.setOnClickListener((v) -> {
             String n = name.getText().toString();
             String e = email.getText().toString();
 
@@ -60,14 +69,14 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
             editor.putString(Name, n);
             editor.putString(Email, e);
             editor.commit();
-            Toast.makeText(Settings.this,"Saved", Toast.LENGTH_LONG).show();
+            Toast.makeText(Settings.this, "Saved", Toast.LENGTH_LONG).show();
 
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         });
 
         button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener((v)->{
+        button2.setOnClickListener((v) -> {
 
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.clear();
@@ -77,12 +86,39 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
         });
 
-        button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener((v)->{
-//            AppCompatDelegate.setDefaultNightMode();
-        });
+        auto = false;
 
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
+        radioGroup.clearCheck();
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int radioButtonID = group.getCheckedRadioButtonId();
+                View radioButton = group.findViewById(radioButtonID);
+                int position = group.indexOfChild(radioButton);
+
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                if (null != rb && position == 0) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    auto = false;
+                }
+
+                if (null != rb && position == 1) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    auto = false;
+                }
+
+                if (null != rb && position == 2) {
+                    auto = true;
+                }
+
+            }
+        });
     }
+
 
     @Override
     protected void onResume() {
@@ -96,6 +132,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         super.onPause();
     }
 
+    //Only called when the sensor is altered
     @Override
     public void onSensorChanged(SensorEvent event) {
         int type = event.sensor.getType();
@@ -109,6 +146,15 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
             lightEditText = findViewById(R.id.lightEditText);
 
             lightEditText.setText("Light Sensor: " + vals[0]);
+
+            if (auto == true) {
+                if (vals[0] > 10) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
         }
     }
 
