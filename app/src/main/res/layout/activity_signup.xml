@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".MainActivity"
+    android:background="#f0f4f3"
     android:id="@+id/bigLayout">
 
     <TextView
