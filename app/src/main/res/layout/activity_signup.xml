@@ -3,8 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".MainActivity"
-    android:background="#f0f4f3"
+    tools:context=".SignupActivity"
     android:id="@+id/bigLayout">
 
     <TextView

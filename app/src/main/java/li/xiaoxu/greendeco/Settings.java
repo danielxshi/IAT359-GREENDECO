@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +23,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager mySensorManager;
     private Sensor myLight;
-    private Button button, button2, button3;
+    private Button button, button2;
 
     EditText name, email;
 
@@ -30,6 +32,10 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     public static final String Email = "emailKey";
 
     SharedPreferences sharedpreferences;
+
+    private RadioGroup radioGroup;
+
+    boolean auto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +66,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
             editor.putString(Name, n);
             editor.putString(Email, e);
             editor.commit();
-            Toast.makeText(Settings.this,"Saved", Toast.LENGTH_LONG).show();
 
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
         });
 
         button2 = (Button) findViewById(R.id.button2);
@@ -71,18 +74,50 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.clear();
+            editor.commit();
+
+            radioGroup.clearCheck();
 
             Intent i = new Intent(this, SignupActivity.class);
             startActivity(i);
 
         });
 
-        button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener((v)->{
-//            AppCompatDelegate.setDefaultNightMode();
-        });
+        auto = false;
 
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int radioButtonID = group.getCheckedRadioButtonId();
+                View radioButton = group.findViewById(radioButtonID);
+                int position = group.indexOfChild(radioButton);
+
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                if (null != rb && position == 0) {
+                    auto = false;
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    finish();
+                    startActivity(getIntent());
+                }
+
+                if (null != rb && position == 1) {
+                    auto = false;
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    finish();
+                    startActivity(getIntent());
+                }
+
+                if (null != rb && position == 2) {
+                    auto = true;
+                }
+
+            }
+        });
     }
+
 
     @Override
     protected void onResume() {
@@ -96,6 +131,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         super.onPause();
     }
 
+    //Only called when the sensor is altered
     @Override
     public void onSensorChanged(SensorEvent event) {
         int type = event.sensor.getType();
@@ -106,9 +142,18 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
             EditText lightEditText;
 
-            lightEditText = findViewById(R.id.lightEditText);
+//            lightEditText = findViewById(R.id.lightEditText);
 
-            lightEditText.setText("Light Sensor: " + vals[0]);
+//            lightEditText.setText("Light Sensor: " + vals[0]);
+
+            if (auto == true) {
+                if (vals[0] > 10) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
         }
     }
 
