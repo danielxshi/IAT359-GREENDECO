@@ -40,7 +40,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         }
     }
 
-//    Context context = itemView.getContext();
 
     @NonNull
     @Override
@@ -63,5 +62,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         return images.length;
     }
 }
+
 
 

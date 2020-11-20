@@ -43,9 +43,8 @@ public class MainActivity extends AppCompatActivity {
         //Implicit Intent to GI Website
         btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
         btn_nav_home.setOnClickListener((v)->{
-            Intent i = new Intent();
-            onActivityResult(REQUEST_CODE_ENTRY,RESULT_OK,i);
-            finish();
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
         });
 
         //Implicit Intent to GI Website

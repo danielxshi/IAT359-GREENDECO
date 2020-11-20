@@ -138,7 +138,8 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         if (g == 1) radioGroup.check(R.id.radioButton2);
         if (g == 2) radioGroup.check(R.id.radioButton3);
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() { //implement this in class instead of creating new object
+            //save this to sharedpreferences to maintain selection
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
