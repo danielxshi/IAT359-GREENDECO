@@ -39,6 +39,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     public static final String MyPROFILE = "MyProfile" ;
     public static final String Name = "nameKey";
     public static final String Email = "emailKey";
+    public static final String Position = "positionKey";
 
     SharedPreferences sharedpreferences;
 
@@ -93,15 +94,20 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         String channel2 = (sharedpreferences.getString(Email, ""));
         email.setText(channel2);
 
+        sharedpreferences = getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
+        int g = (sharedpreferences.getInt(Position, 0));
+
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener((v)->{
             String n = name.getText().toString();
             String e = email.getText().toString();
+            Integer gi = g;
 
             SharedPreferences.Editor editor = sharedpreferences.edit();
 
             editor.putString(Name, n);
             editor.putString(Email, e);
+            editor.putInt(Position, gi);
             editor.commit();
 
         });
@@ -110,10 +116,15 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         button2.setOnClickListener((v)->{
 
             SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.clear();
-            editor.commit();
 
             radioGroup.clearCheck();
+
+            editor.clear();
+            editor.putInt(Position, 0);
+            editor.commit();
+
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
 
             Intent i = new Intent(this, SignupActivity.class);
             startActivity(i);
@@ -122,6 +133,10 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
+        if (g == 0) radioGroup.check(R.id.radioButton1);
+        if (g == 1) radioGroup.check(R.id.radioButton2);
+        if (g == 2) radioGroup.check(R.id.radioButton3);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -134,21 +149,33 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 if (null != rb && position == 0) {
-//                    auto = false;
+                    auto = false;
                     Log.i(TAG, "position should be 0" + position);
 
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putInt(Position, position);
+                    editor.commit();
                 }
 
                 if (null != rb && position == 1) {
                     Log.i(TAG, "position should be 1" + position);
 
-//                    auto = false;
+                    auto = false;
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putInt(Position, position);
+                    editor.commit();
                 }
 
                 if (null != rb && position == 2) {
-//                    auto = true;
+                    auto = true;
+
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putInt(Position, position);
+                    editor.commit();
                 }
 
             }
