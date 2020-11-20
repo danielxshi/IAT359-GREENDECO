@@ -14,4 +14,6 @@ public class Constants {
     public static final String LAT = "latitude";
     public static final String LONG = "longitude";
     public static final int DATABASE_VERSION = 1;
+
+    public static final String TAG = "database";
 }

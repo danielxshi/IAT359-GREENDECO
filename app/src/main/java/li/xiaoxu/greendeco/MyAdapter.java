@@ -10,6 +10,7 @@ package li.xiaoxu.greendeco;
 //import android.widget.Toast;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +30,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public ArrayList<String> list;
     Context context;
-
     public MyAdapter(ArrayList<String> list) {
         this.list = list;
     }
-
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(row,parent,false);
@@ -44,7 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyAdapter.MyViewHolder holder, int position) {
 
-        String[]  results = (list.get(position).toString()).split(",");
+        String[] results = (list.get(position).toString()).split(",");
         if (results.length > 2) { //3 ,
             holder.addressTextView.setText(results[0]);
             holder.typologyTextView.setText(results[1]);

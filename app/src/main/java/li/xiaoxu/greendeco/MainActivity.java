@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        //Implicit Intent to GI Website
+        //Implicit Intent to GI sites
         btn_nav_map = (Button) findViewById(R.id.btn_nav_sites);
         btn_nav_map.setOnClickListener((v)->{
             Intent i = new Intent(this, SitesActivity.class);
