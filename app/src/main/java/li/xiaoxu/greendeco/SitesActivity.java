@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class SitesActivity extends Activity {
+public class SitesActivity extends Activity implements AdapterView.OnItemClickListener{
     RecyclerView myRecycler;
     MyDatabase db;
     MyAdapter myAdapter;
@@ -64,5 +64,14 @@ public class SitesActivity extends Activity {
         TextView siteDescriptionTextView = (TextView) findViewById(R.id.siteDescriptionEntry);
 
         Toast.makeText(this, "row " + 1 + ":  " + siteAddressTextView.getText() + " " + siteTypologyTextView.getText() + " " + siteDescriptionTextView.getText(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        LinearLayout clickedRow = (LinearLayout) view;
+        TextView siteAddressTextView = (TextView) view.findViewById(R.id.siteAddressEntry);
+        TextView siteTypologyTextView = (TextView) view.findViewById(R.id.siteTypologyEntry);
+        TextView siteDescriptionTextView = (TextView) view.findViewById(R.id.siteDescriptionEntry);
+        Toast.makeText(this, "row " + (1+position) + ":  " + siteAddressTextView.getText() + " " + siteTypologyTextView.getText() + " " + siteDescriptionTextView.getText(), Toast.LENGTH_LONG).show();
     }
 }

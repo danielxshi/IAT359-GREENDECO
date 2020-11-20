@@ -58,9 +58,9 @@ public class RecyclerActivity extends Activity implements AdapterView.OnItemClic
                 mArrayList.add(s);
                 cursor.moveToNext();
             }
-            db.getAllTheData();
+            db.getSitesData();
         } else {
-            mArrayList = db.getSelectedData(query);
+            mArrayList = db.getSitesData();
         }
 
 

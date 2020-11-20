@@ -80,12 +80,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         }
 
-        // Return the size of your dataset (invoked by the layout manager)
-        @Override
-        public int getItemCount() {
-            return .size();
-        }
-
         @Override
         public void onClick(View view) {
             Toast.makeText(context,
