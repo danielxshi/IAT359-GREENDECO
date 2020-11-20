@@ -3,6 +3,7 @@ package li.xiaoxu.greendeco;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,8 +12,9 @@ import android.widget.Toast;
 
 public class SignupActivity extends AppCompatActivity {
     EditText username, password, repassword;
-    Button signup, signin;
+    Button signup, signin, webBtn;
     DBHelper DB;
+    static final int REQUEST_CODE_ENTRY = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,14 @@ public class SignupActivity extends AppCompatActivity {
         DB = new DBHelper(this);
 
 
+
+        //Explicit intent to map page
+        webBtn = (Button) findViewById(R.id.btnWebsite);
+        webBtn.setOnClickListener((v)->{
+            Intent i = new Intent();
+            onActivityResult(REQUEST_CODE_ENTRY,RESULT_OK, i);
+            finish();
+        });
 
         //set on click listener
         signup.setOnClickListener(new View.OnClickListener(){
@@ -69,5 +79,17 @@ public class SignupActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int rqCode, int rsCode, Intent data){
+        if(rqCode==REQUEST_CODE_ENTRY){
+            if(rsCode==RESULT_OK){
+                Uri webpage = Uri.parse("https://citystudiovancouver.com/");
+                Intent webIntent = new Intent(Intent.ACTION_VIEW,webpage);
+                startActivity(webIntent);
+            }
+        }
+        super.onActivityResult(rqCode, rsCode, data);
     }
 }

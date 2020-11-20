@@ -42,5 +42,12 @@
         android:text="@string/sign_in_button"
         android:layout_marginTop="50dp"
         android:layout_below="@+id/btnsignup"/>
+    <Button
+        android:id="@+id/btnWebsite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/web_button"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/btnsignin"/>
 
 </RelativeLayout>

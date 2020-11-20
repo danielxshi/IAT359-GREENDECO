@@ -195,6 +195,7 @@
     <string name="auto_md">Auto Mode</string>
     <string name="name_field">Name: </string>
     <string name="save_prof">Save Profile </string>
+    <string name="web_button">Website </string>
 
     >>>>>>> Stashed changes
 </resources>
