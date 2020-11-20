@@ -47,6 +47,7 @@ import static li.xiaoxu.greendeco.MainActivity.REQUEST_CODE_ENTRY;
 
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
+ * CITATION: https://developers.google.com/maps/documentation/android-sdk/map-with-marker
  */
 public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback {
