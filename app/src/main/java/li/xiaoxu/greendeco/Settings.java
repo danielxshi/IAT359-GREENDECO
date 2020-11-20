@@ -55,6 +55,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         //Implicit Intent to GI Website
         btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
         btn_nav_home.setOnClickListener((v)->{
+            finish();
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         });
@@ -62,6 +63,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         //Implicit Intent to GI Website
         btn_nav_map = (Button) findViewById(R.id.btn_nav_map);
         btn_nav_map.setOnClickListener((v)->{
+            finish();
             Intent i = new Intent(this, MapsMarkerActivity.class);
             startActivity(i);
         });
@@ -69,6 +71,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         //Implicit Intent to GI Website
         btn_nav_map = (Button) findViewById(R.id.btn_nav_sites);
         btn_nav_map.setOnClickListener((v)->{
+            finish();
             Intent i = new Intent(this, SitesActivity.class);
             startActivity(i);
         });
@@ -76,6 +79,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         //Implicit Intent to settings
         btn_nav_map = (Button) findViewById(R.id.btn_nav_set);
         btn_nav_map.setOnClickListener((v)->{
+            finish();
             Intent i = new Intent(this, Settings.class);
             startActivity(i);
         });
