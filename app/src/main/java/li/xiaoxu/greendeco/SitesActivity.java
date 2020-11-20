@@ -38,7 +38,6 @@ public class SitesActivity extends Activity {
 
         Cursor cursor = db.getData();
 
-        int index0 = cursor.getColumnIndex(Constants.FID);
         int index1 = cursor.getColumnIndex(Constants.ADDRESS);
         int index2 = cursor.getColumnIndex(Constants.TYPOLOGY);
         int index3 = cursor.getColumnIndex(Constants.DESCRIPTION);
@@ -46,12 +45,11 @@ public class SitesActivity extends Activity {
         mArrayList = new ArrayList<String>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            String siteFID = cursor.getString(index0);
             String siteAddress = cursor.getString(index1);
             String siteTypology = cursor.getString(index2);
             String siteDescription = cursor.getString(index3);
 
-            String s = siteFID + "," + siteAddress + "," + siteTypology + "," + siteDescription;
+            String s = siteAddress + "," + siteTypology + "," + siteDescription;
 
             mArrayList.add(s);
             cursor.moveToNext();
