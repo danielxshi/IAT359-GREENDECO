@@ -23,6 +23,7 @@ public class SignupActivity extends AppCompatActivity {
     public static final String Name = "nameKey";
     public static final String Email = "emailKey";
     public static final String Password = "passwordKey";
+    public static final String Position = "positionKey";
 
     SharedPreferences sharedpreferences;
 
@@ -49,6 +50,7 @@ public class SignupActivity extends AppCompatActivity {
             editor.putString(Name, n);
             editor.putString(Email, e);
             editor.putString(Password, p);
+            editor.putInt(Position, 0);
             editor.commit();
             Toast.makeText(SignupActivity.this,"Profile Saved", Toast.LENGTH_LONG).show();
 
