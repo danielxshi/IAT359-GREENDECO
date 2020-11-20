@@ -2,8 +2,11 @@ package li.xiaoxu.greendeco;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Button;
+
 
 import java.util.ArrayList;
 
@@ -12,6 +15,9 @@ public class MyDatabase {
     private SQLiteDatabase db;
     private Context context;
     private final MyHelper helper;
+
+    Button btn_nav_home;
+    Button btn_nav_map;
 
     public MyDatabase (Context c) {
         context = c;
@@ -86,5 +92,6 @@ public class MyDatabase {
         int count = db.delete(Constants.TABLE3_NAME, Constants.TYPOLOGY + "=?", whereArgs);
         return count;
     }
+
 
 }

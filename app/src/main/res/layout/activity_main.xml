@@ -36,14 +36,14 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="home" />
+            android:text="@string/sites_nav_home" />
 
         <Button
             android:id="@+id/btn_nav_map"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="map" />
+            android:text="@string/sites_nav_map" />
 
         <Button
             android:id="@+id/btn_nav_sites"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="sites" />
+            android:text="@string/sites_nav_sites" />
 
         <Button
             android:id="@+id/btn_nav_set"
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Settings" />
+            android:text="@string/sites_nav_settings" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

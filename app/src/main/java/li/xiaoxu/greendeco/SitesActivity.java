@@ -24,6 +24,8 @@ public class SitesActivity extends Activity implements AdapterView.OnItemClickLi
     MyDatabase db;
     MyAdapter myAdapter;
     MyHelper helper;
+    Button btn_nav_home;
+    Button btn_nav_map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,25 +40,38 @@ public class SitesActivity extends Activity implements AdapterView.OnItemClickLi
 
         ArrayList<String> mArrayList;
 
-//        Cursor cursor = db.getData();
 //
-//        int index1 = cursor.getColumnIndex(Constants.ADDRESS);
-//        int index2 = cursor.getColumnIndex(Constants.TYPOLOGY);
-//        int index3 = cursor.getColumnIndex(Constants.DESCRIPTION);
+//        //Explicit intent to home page
+//        btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
+//        btn_nav_home.setOnClickListener((v)->{
+//            Intent i = new Intent(this, MainActivity.class);
+//            startActivity(i);
+//        });
 //
-//        mArrayList = new ArrayList<String>();
-//        cursor.moveToFirst();
-//        while (!cursor.isAfterLast()) {
-//            String siteAddress = cursor.getString(index1);
-//            String siteTypology = cursor.getString(index2);
-//            String siteDescription = cursor.getString(index3);
+//        //Explicit intent to map page
+//        btn_nav_map = (Button) findViewById(R.id.btn_nav_map);
+//        btn_nav_map.setOnClickListener((v)->{
+//            finish();
+//            Intent i = new Intent(this, MapsMarkerActivity.class);
+//            startActivity(i);
+//        });
 //
-//            String s = siteAddress + "," + siteTypology + "," + siteDescription;
+//        //Explicit Intent to GI sites
+//        btn_nav_map = (Button) findViewById(R.id.btn_nav_sites);
+//        btn_nav_map.setOnClickListener((v)->{
+//            finish();
+//            Intent i = new Intent(this, SitesActivity.class);
+//            startActivity(i);
+//        });
 //
-//            mArrayList.add(s);
-//            cursor.moveToNext();
-//        }
-//        db.getSitesData();
+//        //Explicit Intent to settings
+//        btn_nav_map = (Button) findViewById(R.id.btn_nav_set);
+//        btn_nav_map.setOnClickListener((v)->{
+//            finish();
+//            Intent i = new Intent(this, Settings.class);
+//            startActivity(i);
+//        });
+
 
         mArrayList = db.getSitesData();
         myAdapter = new MyAdapter(mArrayList);

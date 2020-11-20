@@ -40,14 +40,15 @@ public class MainActivity extends AppCompatActivity {
         HomeAdapter homeAdapter = new HomeAdapter(this, s1, s2, images);
         recyclerView.setAdapter(homeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //Implicit Intent to GI Website
+
+        //Explicit intent to home page
         btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
         btn_nav_home.setOnClickListener((v)->{
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         });
 
-        //Implicit Intent to GI Website
+        //Explicit intent to map page
         btn_nav_map = (Button) findViewById(R.id.btn_nav_map);
         btn_nav_map.setOnClickListener((v)->{
             finish();
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        //Implicit Intent to GI sites
+        //Explicit Intent to GI sites
         btn_nav_map = (Button) findViewById(R.id.btn_nav_sites);
         btn_nav_map.setOnClickListener((v)->{
             finish();
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        //Implicit Intent to settings
+        //Explicit Intent to settings
         btn_nav_map = (Button) findViewById(R.id.btn_nav_set);
         btn_nav_map.setOnClickListener((v)->{
             finish();
