@@ -46,6 +46,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     private RadioGroup radioGroup;
 
     boolean auto = false;
+    int g = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         email.setText(channel2);
 
         sharedpreferences = getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
-        int g = (sharedpreferences.getInt(Position, 0));
+        g = (sharedpreferences.getInt(Position, 0));
 
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener((v)->{
@@ -138,11 +139,24 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
-        if (g == 0) radioGroup.check(R.id.radioButton1);
-        if (g == 1) radioGroup.check(R.id.radioButton2);
-        if (g == 2) radioGroup.check(R.id.radioButton3);
+        if (g == 0) {
+            auto = false;
+            radioGroup.check(R.id.radioButton1);
+        }
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() { //implement this in class instead of creating new object
+        if (g == 1) {
+            auto = false;
+            radioGroup.check(R.id.radioButton2);
+        }
+
+        if (g == 2) {
+            auto = true;
+            radioGroup.check(R.id.radioButton3);
+        }
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            //implement this in class instead of creating new object
             //save this to sharedpreferences to maintain selection
 
             @Override
@@ -191,7 +205,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     @Override
     protected void onResume() {
         super.onResume();
-//        mySensorManager.registerListener(this, myLight, SensorManager.SENSOR_DELAY_NORMAL);
+        mySensorManager.registerListener(this, myLight, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -210,12 +224,13 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         if(type == Sensor.TYPE_LIGHT) {
 
             float[] vals = event.values;
+
 //            Log.i(TAG, "Light value in auto" + vals[0]);
-
+//
 //            EditText lightEditText;
-
+//
 //            lightEditText = findViewById(R.id.lightEditText);
-
+//
 //            lightEditText.setText("Light Sensor: " + vals[0]);
 
             if (auto == true) {
