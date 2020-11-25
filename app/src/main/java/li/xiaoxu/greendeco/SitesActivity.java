@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class SitesActivity extends Activity implements AdapterView.OnItemClickListener{
+public class SitesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     RecyclerView myRecycler;
     MyDatabase db;
     MyAdapter myAdapter;

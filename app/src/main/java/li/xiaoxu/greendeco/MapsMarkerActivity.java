@@ -157,13 +157,13 @@ public class MapsMarkerActivity extends AppCompatActivity
      * @return Boolean.
      */
     // [START maps_current_place_on_options_item_selected]
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.option_get_place) {
-            showCurrentPlace();
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == R.id.option_get_place) {
+//            showCurrentPlace();
+//        }
+//        return true;
+//    }
     // [END maps_current_place_on_options_item_selected]
 
     /**
