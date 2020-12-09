@@ -5,6 +5,11 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
+<!--
+this document is nav-graph
+https://developer.android.com/guide/navigation/navigation-getting-started
+-->
+
     <fragment
         android:id="@+id/navigation_home"
         android:name="li.xiaoxu.greendeco.ui.home.HomeFragment"
@@ -26,5 +31,5 @@
         android:id="@+id/navigation_settings"
         android:name="li.xiaoxu.greendeco.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_settings" />
 </navigation>

@@ -27,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //RecyclerView GI Education cards
-        recyclerView = findViewById(R.id.my_RecyclerView);
-
-        s1 = getResources().getStringArray(R.array.green_title);
-        s2 = getResources().getStringArray(R.array.educ_description);
-
-        HomeAdapter homeAdapter = new HomeAdapter(this, s1, s2, images);
-        recyclerView.setAdapter(homeAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView = findViewById(R.id.my_RecyclerView);
+//
+//        s1 = getResources().getStringArray(R.array.green_title);
+//        s2 = getResources().getStringArray(R.array.educ_description);
+//
+//        HomeAdapter homeAdapter = new HomeAdapter(this, s1, s2, images);
+//        recyclerView.setAdapter(homeAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 //        //Explicit intent to home page
 //        btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //bottom nav
-    bottomNavigation.selectedItemId = R.id.page_2
+
 
     @Override
     protected void onActivityResult(int rqCode, int rsCode, Intent data){
