@@ -1,0 +1,86 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".ui.settings.SettingsFragment"
+    android:id="@+id/bigLayout">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="10dp">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/light_md"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dark_md"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/auto_md"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name_field" />
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/textEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email" />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_prof" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_out" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
