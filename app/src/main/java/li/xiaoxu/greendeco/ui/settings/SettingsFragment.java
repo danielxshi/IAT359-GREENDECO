@@ -31,8 +31,6 @@ import static android.content.Context.SENSOR_SERVICE;
 
 public class SettingsFragment extends Fragment implements SensorEventListener {
 
-    private SettingsViewModel SettingsViewModel;
-
     static final int REQUEST_CODE_ENTRY = 0;
     private static final String TAG = "Settings";
 
@@ -56,8 +54,7 @@ public class SettingsFragment extends Fragment implements SensorEventListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SettingsViewModel =
-                new ViewModelProvider(this).get(li.xiaoxu.greendeco.ui.settings.SettingsViewModel.class);
+        SettingsViewModel settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 //        new ViewModelProvider(this).get(li.xiaoxu.greendeco.ui.settings.SettingsViewModel.class);
         //Inflate the layout for this fragment
         return inflater.inflate(R.layout.settings, container, false);
@@ -213,7 +210,7 @@ public class SettingsFragment extends Fragment implements SensorEventListener {
 //
 //            lightEditText.setText("Light Sensor: " + vals[0]);
 
-            if (auto == true) {
+            if (auto) {
                 if (vals[0] > 1000) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
