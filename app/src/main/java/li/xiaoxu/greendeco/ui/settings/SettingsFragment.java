@@ -31,7 +31,6 @@ import static android.content.Context.SENSOR_SERVICE;
 
 public class SettingsFragment extends Fragment implements SensorEventListener {
 
-    static final int REQUEST_CODE_ENTRY = 0;
     private static final String TAG = "Settings";
 
     private SensorManager mySensorManager;
@@ -57,7 +56,7 @@ public class SettingsFragment extends Fragment implements SensorEventListener {
         SettingsViewModel settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 //        new ViewModelProvider(this).get(li.xiaoxu.greendeco.ui.settings.SettingsViewModel.class);
         //Inflate the layout for this fragment
-        return inflater.inflate(R.layout.settings, container, false);
+        return inflater.inflate(R.layout.fragment_settings, container, false);
         }
 
     @Override
