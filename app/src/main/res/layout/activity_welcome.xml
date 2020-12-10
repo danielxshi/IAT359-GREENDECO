@@ -7,47 +7,123 @@
     android:padding="10dp"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="Welcome"
+        android:textAlignment="center"
+        android:textFontWeight="500"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/usernamelabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:layout_below="@+id/welcome"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="User Name"
-        android:layout_marginTop="50dp"/>
+        android:layout_below="@+id/usernamelabel"
+        android:hint="Type your username"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
+    <TextView
+        android:id="@+id/passwordlabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/username"/>
+        android:layout_below="@+id/passwordlabel"
+        android:hint="Type your password"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
+    <TextView
+        android:id="@+id/repasswordlabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Password Comfirmation"
+        android:layout_below="@+id/password"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
     <EditText
         android:id="@+id/repassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Retype Password"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/password"
-        />
+        android:layout_below="@+id/repasswordlabel"
+        android:hint="Retype your password"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" />
+
     <Button
         android:id="@+id/btnsignup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/repassword"
+        android:layout_marginTop="20dp"
         android:text="@string/register_button"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/repassword"/>
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" />
+
+    <TextView
+        android:id="@+id/signinlabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Already have an account?"
+        android:layout_below="@+id/btnsignup"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
     <Button
         android:id="@+id/btnsignin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/signinlabel"
         android:text="@string/sign_in_button"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/btnsignup"/>
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
+    <TextView
+        android:id="@+id/websitelabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CityStudios Website"
+        android:layout_below="@+id/btnsignin"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
     <Button
         android:id="@+id/btnWebsite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/websitelabel"
+        android:layout_marginTop="0dp"
         android:text="@string/web_button"
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/btnsignin"/>
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" />
+
+
 
 </RelativeLayout>
