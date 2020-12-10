@@ -3,83 +3,67 @@ package li.xiaoxu.greendeco;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import li.xiaoxu.greendeco.ui.home.HomeFragment;
+import li.xiaoxu.greendeco.ui.maps.MapsFragment;
+import li.xiaoxu.greendeco.ui.settings.SettingsFragment;
+import li.xiaoxu.greendeco.ui.sites.SitesFragment;
+
 public class MainActivity extends AppCompatActivity {
 
-    //Recycler GI Education Cards
-    RecyclerView recyclerView;
-
-    String s1[], s2[];
-    int images[] = {R.drawable.home, R.drawable.content1};
-
-//    Button btn_nav_home;
-//    Button btn_nav_map;
-    static final int REQUEST_CODE_ENTRY = 0;
-
+    //https://www.akshayrana.in/2020/07/bottom-navigation-bar-in-android.html
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //RecyclerView GI Education cards
-//        recyclerView = findViewById(R.id.my_RecyclerView);
-//
-//        s1 = getResources().getStringArray(R.array.green_title);
-//        s2 = getResources().getStringArray(R.array.educ_description);
-//
-//        HomeAdapter homeAdapter = new HomeAdapter(this, s1, s2, images);
-//        recyclerView.setAdapter(homeAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
-//        //Explicit intent to home page
-//        btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
-//        btn_nav_home.setOnClickListener((v)->{
-//            Intent i = new Intent(this, MainActivity.class);
-//            startActivity(i);
-//        });
-//
-//        //Explicit intent to map page
-//        btn_nav_map = (Button) findViewById(R.id.btn_nav_map);
-//        btn_nav_map.setOnClickListener((v)->{
-//            finish();
-//            Intent i = new Intent(this, MapsMarkerActivity.class);
-//            startActivity(i);
-//        });
-//
-//        //Explicit Intent to GI sites
-//        btn_nav_map = (Button) findViewById(R.id.btn_nav_sites);
-//        btn_nav_map.setOnClickListener((v)->{
-//            finish();
-//            Intent i = new Intent(this, SitesActivity.class);
-//            startActivity(i);
-//        });
-//
-//        //Explicit Intent to settings
-//        btn_nav_map = (Button) findViewById(R.id.btn_nav_set);
-//        btn_nav_map.setOnClickListener((v)->{
-//            finish();
-//            Intent i = new Intent(this, Settings.class);
-//            startActivity(i);
-//        });
+        openFragment(new HomeFragment());
+
+
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+
+                    case R.id.navigation_home:
+                        openFragment(new HomeFragment());
+                        return true;
+
+                    case R.id.navigation_sites:
+                        openFragment(new SitesFragment());
+                        return true;
+
+                    case R.id.navigation_maps:
+                        openFragment(new MapsFragment());
+                        return true;
+
+                    case R.id.navigation_settings:
+                        openFragment(new SettingsFragment());
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
-    //bottom nav
-
-
-    @Override
-    protected void onActivityResult(int rqCode, int rsCode, Intent data){
-        if(rqCode==REQUEST_CODE_ENTRY){
-            if(rsCode==RESULT_OK){
-                Uri webpage = Uri.parse("https://www.google.com");
-                Intent webIntent = new Intent(Intent.ACTION_VIEW,webpage);
-                startActivity(webIntent);
-            }
-        }
-        super.onActivityResult(rqCode, rsCode, data);
+    void openFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

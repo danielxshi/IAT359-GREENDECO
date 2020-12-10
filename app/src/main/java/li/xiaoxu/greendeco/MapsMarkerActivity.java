@@ -43,7 +43,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import java.util.Arrays;
 import java.util.List;
 
-import static li.xiaoxu.greendeco.MainActivity.REQUEST_CODE_ENTRY;
+//import static li.xiaoxu.greendeco.MainActivity.REQUEST_CODE_ENTRY;
 
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.

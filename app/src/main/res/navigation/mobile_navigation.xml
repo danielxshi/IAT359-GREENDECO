@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_home">
 
-<!--
+    <!--
 this document is nav-graph
 https://developer.android.com/guide/navigation/navigation-getting-started
 -->
@@ -14,7 +14,7 @@ https://developer.android.com/guide/navigation/navigation-getting-started
         android:id="@+id/navigation_home"
         android:name="li.xiaoxu.greendeco.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_navigation_maps"
             app:destination="@id/navigation_maps" />
@@ -24,7 +24,7 @@ https://developer.android.com/guide/navigation/navigation-getting-started
         android:id="@+id/navigation_maps"
         android:name="li.xiaoxu.greendeco.ui.maps.MapsFragment"
         android:label="@string/title_activity_maps"
-        tools:layout="@layout/activity_maps" >
+        tools:layout="@layout/fragment_maps">
         <action
             android:id="@+id/action_navigation_maps_to_navigation_settings"
             app:destination="@id/navigation_settings" />
@@ -34,12 +34,12 @@ https://developer.android.com/guide/navigation/navigation-getting-started
         android:id="@+id/navigation_sites"
         android:name="li.xiaoxu.greendeco.ui.sites.SitesFragment"
         android:label="@string/title_activity_sites"
-        tools:layout="@layout/activity_sites" />
+        tools:layout="@layout/fragment_sites" />
     <fragment
         android:id="@+id/navigation_settings"
         android:name="li.xiaoxu.greendeco.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_navigation_settings_to_navigation_sites"
             app:destination="@id/navigation_sites" />
