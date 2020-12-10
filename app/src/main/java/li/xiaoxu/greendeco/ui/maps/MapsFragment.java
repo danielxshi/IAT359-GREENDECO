@@ -91,8 +91,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private LatLng[] likelyPlaceLatLngs;
 
     // [START maps_current_place_on_create]
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onViewCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // [START_EXCLUDE silent]
@@ -105,16 +104,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         // [END maps_current_place_on_create_save_instance_state]
         // [END_EXCLUDE]
 
-        // Retrieve the content view that renders the map.
-        setContentView(R.layout.activity_maps);
-
         // [START_EXCLUDE silent]
         // Construct a PlacesClient
-        Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
-        placesClient = Places.createClient(this);
+        Places.initialize(getContext(), getString(R.string.google_maps_key));
+        placesClient = Places.createClient(getContext());
 
         // Construct a FusedLocationProviderClient.
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         // Build the map.
         // [START maps_current_place_map_fragment]
@@ -131,7 +127,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      */
     // [START maps_current_place_on_save_instance_state]
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         if (map != null) {
             outState.putParcelable(KEY_CAMERA_POSITION, map.getCameraPosition());
             outState.putParcelable(KEY_LOCATION, lastKnownLocation);
@@ -145,7 +141,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      * @param menu The options menu.
      * @return Boolean.
      */
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.current_place_menu, menu);
         return true;
@@ -191,7 +186,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             public View getInfoContents(Marker marker) {
                 // Inflate the layouts for the info window, title and snippet.
                 View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-                        (FrameLayout) findViewById(R.id.map), false);
+                        (FrameLayout) getView().findViewById(R.id.map), false);
 
                 TextView title = infoWindow.findViewById(R.id.title);
                 title.setText(marker.getTitle());
@@ -228,7 +223,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         try {
             if (locationPermissionGranted) {
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                locationResult.addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
@@ -265,12 +260,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(this.getContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             locationPermissionGranted = true;
         } else {
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(getActivity(),
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
@@ -359,7 +354,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
-                        MapsMarkerActivity.this.openPlacesDialog();
+                        MapsFragment.this.openPlacesDialog();
                     }
                     else {
                         Log.e(TAG, "Exception: %s", task.getException());
@@ -412,7 +407,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         };
 
         // Display the dialog.
-        AlertDialog dialog = new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
                 .setTitle(R.string.pick_place)
                 .setItems(likelyPlaceNames, listener)
                 .show();
