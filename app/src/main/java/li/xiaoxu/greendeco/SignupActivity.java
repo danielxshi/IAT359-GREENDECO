@@ -56,13 +56,13 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
 
-                try {
-                    if (mp.isPlaying()) {
-                        mp.stop();
-                        mp.release();
-                        mp = MediaPlayer.create(context, R.raw.sound);
-                    } mp.start();
-                } catch(Exception e) { e.printStackTrace(); }
+//                try {
+//                    if (mp.isPlaying()) {
+//                        mp.stop();
+//                        mp.release();
+//                        mp = MediaPlayer.create(context, R.raw.sound);
+//                    } mp.start();
+//                } catch(Exception e) { e.printStackTrace(); }
 
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
@@ -76,6 +76,15 @@ public class SignupActivity extends AppCompatActivity {
                         if(checkuser==false){
                             Boolean insert = DB.insertData(user, pass);
                             if(insert==true){
+
+                                try {
+                                    if (mp.isPlaying()) {
+                                        mp.stop();
+                                        mp.release();
+                                        mp = MediaPlayer.create(context, R.raw.sound);
+                                    } mp.start();
+                                } catch(Exception e) { e.printStackTrace(); }
+
                                 Toast.makeText(SignupActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
 
                                 SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -86,13 +95,40 @@ public class SignupActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(intent);
                             } else {
+
+                                try {
+                                    if (mp.isPlaying()) {
+                                        mp.stop();
+                                        mp.release();
+                                        mp = MediaPlayer.create(context, R.raw.wrong);
+                                    } mp.start();
+                                } catch(Exception e) { e.printStackTrace(); }
+
                                 Toast.makeText(SignupActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else {
+
+                            try {
+                                if (mp.isPlaying()) {
+                                    mp.stop();
+                                    mp.release();
+                                    mp = MediaPlayer.create(context, R.raw.wrong);
+                                } mp.start();
+                            } catch(Exception e) { e.printStackTrace(); }
+
                             Toast.makeText(SignupActivity.this, "User already exists! Please sign in", Toast.LENGTH_SHORT).show();
                         }
                     } else {
+
+                        try {
+                            if (mp.isPlaying()) {
+                                mp.stop();
+                                mp.release();
+                                mp = MediaPlayer.create(context, R.raw.wrong);
+                            } mp.start();
+                        } catch(Exception e) { e.printStackTrace(); }
+
                         Toast.makeText(SignupActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
                     }
                 }

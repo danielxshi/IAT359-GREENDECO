@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,9 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
     EditText name, email;
 
+    MediaPlayer mp;
+    Context context;
+
     public static final String MyPROFILE = "MyProfile" ;
     public static final String Name = "nameKey";
     public static final String Email = "emailKey";
@@ -52,6 +56,9 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
+
+        context = this;
+        mp = MediaPlayer.create(context, R.raw.sound);
 
         //Implicit Intent to GI Website
         btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
@@ -104,6 +111,15 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener((v)->{
+
+            try {
+                if (mp.isPlaying()) {
+                    mp.stop();
+                    mp.release();
+                    mp = MediaPlayer.create(context, R.raw.sound);
+                } mp.start();
+            } catch(Exception e) { e.printStackTrace(); }
+
             String n = name.getText().toString();
             String e = email.getText().toString();
             Integer gi = g;

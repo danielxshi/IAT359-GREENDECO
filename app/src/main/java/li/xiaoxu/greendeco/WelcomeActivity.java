@@ -38,13 +38,13 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
 
-                try {
-                    if (mp.isPlaying()) {
-                        mp.stop();
-                        mp.release();
-                        mp = MediaPlayer.create(context, R.raw.sound);
-                    } mp.start();
-                } catch(Exception e) { e.printStackTrace(); }
+//                try {
+//                    if (mp.isPlaying()) {
+//                        mp.stop();
+//                        mp.release();
+//                        mp = MediaPlayer.create(context, R.raw.sound);
+//                    } mp.start();
+//                } catch(Exception e) { e.printStackTrace(); }
 
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
