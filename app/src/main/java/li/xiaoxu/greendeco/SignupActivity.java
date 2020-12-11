@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,8 @@ public class SignupActivity extends AppCompatActivity {
     Button signup, signin, webBtn;
     DBHelper DB;
     static final int REQUEST_CODE_ENTRY = 0;
+    MediaPlayer mp;
+    Context context;
 
     SharedPreferences sharedpreferences;
     public static final String Position = "positionKey";
@@ -34,6 +37,8 @@ public class SignupActivity extends AppCompatActivity {
         signup = (Button) findViewById(R.id.btnsignup);
         signin = (Button) findViewById(R.id.btnsignin);
         DB = new DBHelper(this);
+        context = this;
+        mp = MediaPlayer.create(context, R.raw.sound);
 
         sharedpreferences = getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
         int g = (sharedpreferences.getInt(Position, 0));
@@ -50,6 +55,15 @@ public class SignupActivity extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+
+                try {
+                    if (mp.isPlaying()) {
+                        mp.stop();
+                        mp.release();
+                        mp = MediaPlayer.create(context, R.raw.sound);
+                    } mp.start();
+                } catch(Exception e) { e.printStackTrace(); }
+
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
                 String repass = repassword.getText().toString();

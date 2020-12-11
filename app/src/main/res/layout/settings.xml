@@ -26,6 +26,17 @@
 <!--                    android:inputType="numberDecimal"-->
 <!--                    android:longClickable="false" />-->
 
+            <TextView
+                android:id="@+id/settinglabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:text="Settings"
+                android:textAlignment="center"
+                android:textFontWeight="500"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
                 <RadioGroup
                     android:id="@+id/radioGroup"
                     android:layout_width="match_parent"
@@ -60,37 +71,54 @@
                     android:id="@+id/textName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/name_field" />
+                    android:text="@string/name_field"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp" />
 
                 <EditText
                     android:id="@+id/editTextName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10" />
+                    android:ems="10"
+                    android:hint="Type your name"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp" />
 
                 <TextView
                     android:id="@+id/textEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/email" />
+                    android:text="@string/email_field"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp" />
 
                 <EditText
                     android:id="@+id/editTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10" />
+                    android:ems="10"
+                    android:hint="Type your email"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp" />
 
                 <Button
                     android:id="@+id/button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/save_prof" />
+                    android:text="@string/save_prof"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp" />
 
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/sign_out" />
+                    android:text="@string/sign_out"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp" />
 
 
         </LinearLayout>
@@ -123,7 +151,7 @@
                     android:id="@+id/btn_nav_sites"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:text="@string/sites_nav_sites" />
 
@@ -131,7 +159,7 @@
                     android:id="@+id/btn_nav_set"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:text="@string/sites_nav_settings" />
         </LinearLayout>

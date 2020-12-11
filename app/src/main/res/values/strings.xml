@@ -189,7 +189,7 @@
     <string name="sites_nav_settings">Settings</string>
     <string name="sign_out">Log Out</string>
     <string name="save_prof_bt">Save Profile</string>
-    <string name="email">Email</string>
+    <string name="email_field">Email:</string>
     <string name="light_md">Light Mode</string>
     <string name="dark_md">Dark Mode</string>
     <string name="auto_md">Auto Mode</string>

@@ -2,7 +2,9 @@ package li.xiaoxu.greendeco;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,8 @@ public class WelcomeActivity extends AppCompatActivity {
     EditText username, password, repassword;
     Button signup, signin;
     DBHelper DB;
+    MediaPlayer mp;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +29,23 @@ public class WelcomeActivity extends AppCompatActivity {
         signup = (Button) findViewById(R.id.btnsignup);
         signin = (Button) findViewById(R.id.btnsignin);
         DB = new DBHelper(this);
-
+        context = this;
+        mp = MediaPlayer.create(context, R.raw.sound);
 
 
         //set on click listener
         signup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+
+                try {
+                    if (mp.isPlaying()) {
+                        mp.stop();
+                        mp.release();
+                        mp = MediaPlayer.create(context, R.raw.sound);
+                    } mp.start();
+                } catch(Exception e) { e.printStackTrace(); }
+
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
                 String repass = repassword.getText().toString();
