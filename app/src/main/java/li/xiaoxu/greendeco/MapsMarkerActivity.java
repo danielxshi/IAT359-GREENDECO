@@ -3,6 +3,8 @@ package li.xiaoxu.greendeco;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -22,6 +24,7 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,6 +43,8 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,7 +55,9 @@ import static li.xiaoxu.greendeco.MainActivity.REQUEST_CODE_ENTRY;
  * CITATION: https://developers.google.com/maps/documentation/android-sdk/map-with-marker
  */
 public class MapsMarkerActivity extends AppCompatActivity
-        implements OnMapReadyCallback {
+    implements OnMapReadyCallback {
+
+    MyDatabase dbHelper;
 
     Button btn_nav_home;
     Button btn_nav_map;
@@ -68,7 +75,17 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
+
+    //Test plot
+    LatLng Yaletown = new LatLng(49.28623828878839, -123.12638778783506);
+    ArrayList<LatLng>arrayList=new ArrayList<LatLng>();
+
+    //Vancouver
+    private static final double
+        VANCOUVER_LAT = 49.277549,
+        VANCOUVER_LNG = -123.123921;
+
+    private final LatLng defaultLocation = new LatLng(VANCOUVER_LAT, VANCOUVER_LNG);
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
@@ -123,6 +140,8 @@ public class MapsMarkerActivity extends AppCompatActivity
         mapFragment.getMapAsync(this);
         // [END maps_current_place_map_fragment]
         // [END_EXCLUDE]
+
+        arrayList.add(Yaletown);
     }
     // [END maps_current_place_on_create]
 
@@ -166,55 +185,29 @@ public class MapsMarkerActivity extends AppCompatActivity
 //    }
     // [END maps_current_place_on_options_item_selected]
 
+
+
+
+
+    public void gotoLocation(double lat, double lng, float zoom){
+        LatLng latlng = new LatLng(lat,lng);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latlng, zoom);
+        map.moveCamera(update);
+    }
+
     /**
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
      */
-    // [START maps_current_place_on_map_ready]
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
-        // [START_EXCLUDE]
-        // [START map_current_place_set_info_window_adapter]
-        // Use a custom info window adapter to handle multiple lines of text in the
-        // info window contents.
-        this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-
-            @Override
-            // Return null here, so that getInfoContents() is called next.
-            public View getInfoWindow(Marker arg0) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                // Inflate the layouts for the info window, title and snippet.
-                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-                        (FrameLayout) findViewById(R.id.map), false);
-
-                TextView title = infoWindow.findViewById(R.id.title);
-                title.setText(marker.getTitle());
-
-                TextView snippet = infoWindow.findViewById(R.id.snippet);
-                snippet.setText(marker.getSnippet());
-
-                return infoWindow;
-            }
-        });
-        // [END map_current_place_set_info_window_adapter]
-
-        // Prompt the user for permission.
-        getLocationPermission();
-        // [END_EXCLUDE]
-
-        // Turn on the My Location layer and the related control on the map.
-        updateLocationUI();
-
-        // Get the current location of the device and set the position of the map.
-        getDeviceLocation();
+        gotoLocation(VANCOUVER_LAT, VANCOUVER_LNG, 15);
+        for(int i=0;i<arrayList.size();i++){
+            map.addMarker(new MarkerOptions().position(arrayList.get(i)).title("marker"));
+        }
     }
-    // [END maps_current_place_on_map_ready]
 
     /**
      * Gets the current location of the device, and positions the map's camera.
@@ -442,5 +435,6 @@ public class MapsMarkerActivity extends AppCompatActivity
         }
     }
     // [END maps_current_place_update_location_ui]
+
 
 }
