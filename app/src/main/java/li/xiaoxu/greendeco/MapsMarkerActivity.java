@@ -210,10 +210,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         for(int i=0;i<arrayList.size();i++){
             map.addMarker(new MarkerOptions().position(arrayList.get(i)).title("marker"));
         }
-
-//        public ArrayList<String> getMapData()
-
-//        ArrayList<String> allLocations = MyDatabase.getMapData();
+        showCurrentPlace();
 
         MyDatabase locationDB = new MyDatabase(MapsMarkerActivity.this);
         ArrayList<LocationModel> allLocations = locationDB.getMarkers();
