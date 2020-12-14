@@ -8,7 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.widget.Button;
 
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
+
+import static li.xiaoxu.greendeco.Constants.TABLE1_NAME;
 
 public class MyDatabase {
 
@@ -93,5 +97,34 @@ public class MyDatabase {
         return count;
     }
 
+    //Daniel
+    //retrieve all locations
+    public ArrayList<LocationModel> getMarkers(){
+        ArrayList<LocationModel> returnList = new ArrayList<>();
+
+        //get data from the database
+        String queryString = "SELECT * FROM " + TABLE1_NAME;
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString,null);
+
+        if(cursor.moveToFirst()){
+            //loop through the cursor
+            do {
+                int locationID = cursor.getInt(0);
+                double latLoc = cursor.getDouble(1);
+                double lngLoc = cursor.getDouble(2);
+
+                LocationModel newLocation = new LocationModel(locationID, latLoc, lngLoc);
+                returnList.add(newLocation);
+            } while(cursor.moveToNext());
+        } else {
+            //failure. do not add anything
+        }
+        cursor.close();
+        db.close();
+        return returnList;
+    }
 
 }

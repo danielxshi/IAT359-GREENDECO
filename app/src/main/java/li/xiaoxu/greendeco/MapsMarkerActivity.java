@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -56,6 +57,8 @@ import static li.xiaoxu.greendeco.MainActivity.REQUEST_CODE_ENTRY;
  */
 public class MapsMarkerActivity extends AppCompatActivity
     implements OnMapReadyCallback {
+
+    MyHelper helper;
 
     MyDatabase dbHelper;
 
@@ -141,7 +144,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         // [END maps_current_place_map_fragment]
         // [END_EXCLUDE]
 
-        arrayList.add(Yaletown);
+
     }
     // [END maps_current_place_on_create]
 
@@ -207,6 +210,19 @@ public class MapsMarkerActivity extends AppCompatActivity
         for(int i=0;i<arrayList.size();i++){
             map.addMarker(new MarkerOptions().position(arrayList.get(i)).title("marker"));
         }
+
+//        public ArrayList<String> getMapData()
+
+//        ArrayList<String> allLocations = MyDatabase.getMapData();
+
+        MyDatabase locationDB = new MyDatabase(MapsMarkerActivity.this);
+        ArrayList<LocationModel> allLocations = locationDB.getMarkers();
+
+        for(LocationModel l: locationDB.getMarkers()){
+            map.addMarker(new MarkerOptions().position(new LatLng(l.getLatLoc(), l.getLngLoc())));
+        }
+
+
     }
 
     /**
@@ -435,6 +451,5 @@ public class MapsMarkerActivity extends AppCompatActivity
         }
     }
     // [END maps_current_place_update_location_ui]
-
 
 }

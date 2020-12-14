@@ -1,7 +1,7 @@
 package li.xiaoxu.greendeco;
 
 public class Constants {
-    public static final String DATABASE_NAME = "greendatabase";
+    public static final String DATABASE_NAME = "greendatabase.db";
     public static final String DATABASE_PATH = "/src/main/assets/";
 
     public static final String TABLE1_NAME = "table1";
