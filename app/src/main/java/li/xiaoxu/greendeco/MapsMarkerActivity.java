@@ -219,7 +219,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         ArrayList<LocationModel> allLocations = locationDB.getMarkers();
 
         for(LocationModel l: locationDB.getMarkers()){
-            map.addMarker(new MarkerOptions().position(new LatLng(l.getLatLoc(), l.getLngLoc())));
+            map.addMarker(new MarkerOptions().position(new LatLng(l.getLatLoc(), l.getLngLoc())).title(l.getTopology()));
         }
 
 

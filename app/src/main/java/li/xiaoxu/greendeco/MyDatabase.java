@@ -12,7 +12,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
+import static li.xiaoxu.greendeco.Constants.FID;
 import static li.xiaoxu.greendeco.Constants.TABLE1_NAME;
+import static li.xiaoxu.greendeco.Constants.TABLE2_NAME;
 
 public class MyDatabase {
 
@@ -35,7 +37,7 @@ public class MyDatabase {
     {
         //select plants from database of type 'herb'
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {Constants.FID, Constants.ADDRESS, Constants.TYPOLOGY, Constants.DESCRIPTION};
+        String[] columns = {FID, Constants.ADDRESS, Constants.TYPOLOGY, Constants.DESCRIPTION};
 
         String queryString = "SELECT table2.address, table2.typology, table2.description FROM table1 join table2 WHERE table1.facility_id = table2.facility_id";
         String[] selection = {"table2.address","table2.typology","table2.description","table1.facility_id = table2.facility_id"};  //Constants.TYPE = 'type'
@@ -64,7 +66,7 @@ public class MyDatabase {
     {
         //select facility's gps coordinates from database where it has descriptions
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {Constants.FID, Constants.ADDRESS, Constants.TYPOLOGY, Constants.DESCRIPTION};
+        String[] columns = {FID, Constants.ADDRESS, Constants.TYPOLOGY, Constants.DESCRIPTION};
 
         String queryString = "SELECT table1.facility_id, lat, long FROM table1 JOIN table2 WHERE table1.facility_id = table2.facility_id;";
         String[] selection = {"table1.facility_id","lat","long"};  //
@@ -74,7 +76,7 @@ public class MyDatabase {
         ArrayList<String> mArrayList = new ArrayList<String>();
         while (cursor.moveToNext()) {
 
-            int index0 = cursor.getColumnIndex(Constants.FID);
+            int index0 = cursor.getColumnIndex(FID);
             int index1 = cursor.getColumnIndex(Constants.LAT);
             int index2 = cursor.getColumnIndex(Constants.LONG);
 
@@ -97,13 +99,17 @@ public class MyDatabase {
         return count;
     }
 
-    //Daniel
-    //retrieve all locations
+    //Get locations from DB and use it to in creating ArrayList of LocationModel to plot markers
     public ArrayList<LocationModel> getMarkers(){
         ArrayList<LocationModel> returnList = new ArrayList<>();
 
         //get data from the database
-        String queryString = "SELECT * FROM " + TABLE1_NAME;
+//        String queryString = "SELECT * FROM " + TABLE1_NAME;
+        String queryString = "SELECT * FROM " + TABLE1_NAME + " TB1 "
+                + " JOIN " + TABLE2_NAME + " TB2 "
+                + " ON TB1." + FID + " = TB2." + FID
+                + " WHERE TB1." + FID + " = TB2." + FID;
+
 
         SQLiteDatabase db = helper.getReadableDatabase();
 
@@ -115,8 +121,9 @@ public class MyDatabase {
                 int locationID = cursor.getInt(0);
                 double latLoc = cursor.getDouble(1);
                 double lngLoc = cursor.getDouble(2);
+                String topologyTitle = cursor.getString(4);
 
-                LocationModel newLocation = new LocationModel(locationID, latLoc, lngLoc);
+                LocationModel newLocation = new LocationModel(locationID, latLoc, lngLoc, topologyTitle);
                 returnList.add(newLocation);
             } while(cursor.moveToNext());
         } else {
