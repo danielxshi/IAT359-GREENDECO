@@ -10,6 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.NavHost;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,41 +34,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHostFragment.getNavController();
 
-        openFragment(new HomeFragment());
+        bottomNav.setOnNavigationItemSelectedListener(item -> {
 
+            switch (item.getItemId()) {
 
-        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                case R.id.navigation_home:
+                    navController.navigate(R.id.navigation_home);
+                    return true;
 
-                switch (item.getItemId()) {
+                case R.id.navigation_sites:
+                    navController.navigate(R.id.navigation_sites);
+                    return true;
 
-                    case R.id.navigation_home:
-                        openFragment(new HomeFragment());
-                        return true;
+                case R.id.navigation_maps:
+                    navController.navigate(R.id.navigation_maps);
+                    return true;
 
-                    case R.id.navigation_sites:
-                        openFragment(new SitesFragment());
-                        return true;
-
-                    case R.id.navigation_maps:
-                        openFragment(new MapsFragment());
-                        return true;
-
-                    case R.id.navigation_settings:
-                        openFragment(new SettingsFragment());
-                        return true;
-                }
-                return false;
+                case R.id.navigation_settings:
+                    navController.navigate(R.id.navigation_settings);
+                    return true;
             }
+            return false;
         });
-    }
-
-    void openFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
 }

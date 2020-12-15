@@ -14,21 +14,13 @@ https://developer.android.com/guide/navigation/navigation-getting-started
         android:id="@+id/navigation_home"
         android:name="li.xiaoxu.greendeco.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_maps"
-            app:destination="@id/navigation_maps" />
-    </fragment>
+        tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/navigation_maps"
         android:name="li.xiaoxu.greendeco.ui.maps.MapsFragment"
         android:label="@string/title_activity_maps"
-        tools:layout="@layout/fragment_maps">
-        <action
-            android:id="@+id/action_navigation_maps_to_navigation_settings"
-            app:destination="@id/navigation_settings" />
-    </fragment>
+        tools:layout="@layout/fragment_maps"/>
 
     <fragment
         android:id="@+id/navigation_sites"
@@ -39,9 +31,5 @@ https://developer.android.com/guide/navigation/navigation-getting-started
         android:id="@+id/navigation_settings"
         android:name="li.xiaoxu.greendeco.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings">
-        <action
-            android:id="@+id/action_navigation_settings_to_navigation_sites"
-            app:destination="@id/navigation_sites" />
-    </fragment>
+        tools:layout="@layout/fragment_settings"/>
 </navigation>
