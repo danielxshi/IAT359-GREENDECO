@@ -196,6 +196,11 @@
     <string name="name_field">Name: </string>
     <string name="save_prof">Save Profile </string>
     <string name="web_button">Website </string>
+    <string name="emailHint">Email</string>
+    <string name="subjectHint">Subject</string>
+    <string name="messageHint">Message</string>
+    <string name="emailBtn">SEND</string>
+    <string name="mailHeader">Contact Form</string>
 
     >>>>>>> Stashed changes
 </resources>

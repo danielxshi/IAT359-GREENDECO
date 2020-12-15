@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         //Explicit intent to home page
         btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
         btn_nav_home.setOnClickListener((v)->{
-            Intent i = new Intent(this, MainActivity.class);
+            Intent i = new Intent(this, ContactForm.class);
             startActivity(i);
         });
 

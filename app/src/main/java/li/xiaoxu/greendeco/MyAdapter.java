@@ -1,20 +1,11 @@
 package li.xiaoxu.greendeco;
 
-//import android.content.Context;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.ImageView;
-//import android.widget.LinearLayout;
-//import android.widget.TextView;
-//import android.widget.Toast;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,17 +65,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             typologyTextView = (TextView) itemView.findViewById(R.id.siteTypologyEntry);
             descriptionTextView = (TextView) itemView.findViewById(R.id.siteDescriptionEntry);
 
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view){
+                    context.startActivity(new Intent(view.getContext(), ContactForm.class));
+                }
+            });
             context = itemView.getContext();
 
         }
 
         @Override
         public void onClick(View view) {
-//            Toast.makeText(context,
-//                    "You have clicked " + ((TextView)view.findViewById(R.id.siteAddressEntry)).getText().toString(),
-//                    Toast.LENGTH_SHORT).show();
-
             Toast.makeText(context,
                     "You have clicked " + ((TextView)view.findViewById(R.id.siteAddressEntry)).getText().toString(),
                     Toast.LENGTH_SHORT).show();
