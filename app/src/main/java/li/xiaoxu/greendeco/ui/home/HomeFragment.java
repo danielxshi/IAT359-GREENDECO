@@ -12,39 +12,36 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import li.xiaoxu.greendeco.HomeAdapter;
 import li.xiaoxu.greendeco.R;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    //Recycler GI Education Cards
-    RecyclerView recyclerView;
 
+    RecyclerView recyclerView;
     String s1[], s2[];
     int images[] = {R.drawable.home, R.drawable.content1};
-    static final int REQUEST_CODE_ENTRY = 0;
-    private static final int RESULT_OK = 1;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        return root;
+        return inflater.inflate(R.layout.activity_home, container, false);
     }
 
     @Override
-    public void onActivityResult(int rqCode, int rsCode, Intent data){
-        if(rqCode==REQUEST_CODE_ENTRY){
-            if(rsCode==RESULT_OK){
-                Uri webpage = Uri.parse("https://www.google.com");
-                Intent webIntent = new Intent(Intent.ACTION_VIEW,webpage);
-                startActivity(webIntent);
-            }
-        }
-        super.onActivityResult(rqCode, rsCode, data);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //RecyclerView GI Education cards
+        recyclerView = getView().findViewById(R.id.my_RecyclerView);
+        s1 = getResources().getStringArray(R.array.green_title);
+        s2 = getResources().getStringArray(R.array.educ_description);
+
+        HomeAdapter homeAdapter = new HomeAdapter(getActivity(), s1, s2, images);
+        recyclerView.setAdapter(homeAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }

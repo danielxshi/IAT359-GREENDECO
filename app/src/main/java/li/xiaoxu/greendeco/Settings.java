@@ -20,6 +20,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import li.xiaoxu.greendeco.ui.maps.MapsFragment;
+
 
 public class Settings extends AppCompatActivity implements SensorEventListener {
 
@@ -72,7 +74,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         btn_nav_map = (Button) findViewById(R.id.btn_nav_map);
         btn_nav_map.setOnClickListener((v)->{
             finish();
-            Intent i = new Intent(this, MapsMarkerActivity.class);
+            Intent i = new Intent(this, MapsFragment.class);
             startActivity(i);
         });
 

@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -22,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,25 +42,23 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import li.xiaoxu.greendeco.MapsMarkerActivity;
+import li.xiaoxu.greendeco.LocationModel;
+import li.xiaoxu.greendeco.MyDatabase;
+import li.xiaoxu.greendeco.MyHelper;
 import li.xiaoxu.greendeco.R;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
-    private MapsViewModel mapsViewModel;
+    MyHelper helper;
+    MyDatabase dbHelper;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        mapsViewModel =
-                new ViewModelProvider(this).get(MapsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_maps, container, false);
-        return root;
-    }
+    static final int REQUEST_CODE_ENTRY = 0;
 
-    private static final String TAG = MapsMarkerActivity.class.getSimpleName();
+    private static final String TAG = MapsFragment.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
 
@@ -69,7 +70,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
+    //Test plot
+    LatLng Yaletown = new LatLng(49.28623828878839, -123.12638778783506);
+    ArrayList<LatLng> arrayList = new ArrayList<LatLng>();
+
+    //Vancouver
+    private static final double
+            VANCOUVER_LAT = 49.277549,
+            VANCOUVER_LNG = -123.123921;
+
+    private final LatLng defaultLocation = new LatLng(VANCOUVER_LAT, VANCOUVER_LNG);
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
@@ -91,9 +101,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
 
-    // [START maps_current_place_on_create]
-    public void onViewCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    // [START maps_current_place_on_create]\
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        //Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_maps, container, false);
+    }
+
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // [START_EXCLUDE silent]
         // [START maps_current_place_on_create_save_instance_state]
@@ -139,6 +155,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     /**
      * Sets up the options menu.
+     *
      * @param menu The options menu.
      * @return Boolean.
      */
@@ -147,20 +164,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    /**
-     * Handles a click on the menu option to get a place.
-     * @param item The menu item to handle.
-     * @return Boolean.
-     */
-    // [START maps_current_place_on_options_item_selected]
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == R.id.option_get_place) {
-//            showCurrentPlace();
-//        }
-//        return true;
-//    }
-    // [END maps_current_place_on_options_item_selected]
+
+    public void gotoLocation(double lat, double lng, float zoom) {
+        LatLng latlng = new LatLng(lat, lng);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latlng, zoom);
+        map.moveCamera(update);
+    }
 
     /**
      * Manipulates the map when it's available.
@@ -171,44 +180,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
-        // [START_EXCLUDE]
-        // [START map_current_place_set_info_window_adapter]
-        // Use a custom info window adapter to handle multiple lines of text in the
-        // info window contents.
-        this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+        gotoLocation(VANCOUVER_LAT, VANCOUVER_LNG, 15);
+        for (int i = 0; i < arrayList.size(); i++) {
+            map.addMarker(new MarkerOptions().position(arrayList.get(i)).title("marker"));
+        }
+        showCurrentPlace();
 
-            @Override
-            // Return null here, so that getInfoContents() is called next.
-            public View getInfoWindow(Marker arg0) {
-                return null;
-            }
+        MyDatabase locationDB = new MyDatabase(getContext());
+        ArrayList<LocationModel> allLocations = locationDB.getMarkers();
 
-            @Override
-            public View getInfoContents(Marker marker) {
-                // Inflate the layouts for the info window, title and snippet.
-                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-                        (FrameLayout) getView().findViewById(R.id.map), false);
-
-                TextView title = infoWindow.findViewById(R.id.title);
-                title.setText(marker.getTitle());
-
-                TextView snippet = infoWindow.findViewById(R.id.snippet);
-                snippet.setText(marker.getSnippet());
-
-                return infoWindow;
-            }
-        });
-        // [END map_current_place_set_info_window_adapter]
-
-        // Prompt the user for permission.
-        getLocationPermission();
-        // [END_EXCLUDE]
-
-        // Turn on the My Location layer and the related control on the map.
-        updateLocationUI();
-
-        // Get the current location of the device and set the position of the map.
-        getDeviceLocation();
+        for (LocationModel l : locationDB.getMarkers()) {
+            map.addMarker(new MarkerOptions().position(new LatLng(l.getLatLoc(), l.getLngLoc())).title(l.getTopology()));
+        }
     }
     // [END maps_current_place_on_map_ready]
 
@@ -245,7 +228,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     }
                 });
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage(), e);
         }
     }
@@ -316,10 +299,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
             // Get the likely places - that is, the businesses and other points of interest that
             // are the best match for the device's current location.
-            @SuppressWarnings("MissingPermission") final
-            Task<FindCurrentPlaceResponse> placeResult =
+            @SuppressWarnings("MissingPermission") final Task<FindCurrentPlaceResponse> placeResult =
                     placesClient.findCurrentPlace(request);
-            placeResult.addOnCompleteListener (new OnCompleteListener<FindCurrentPlaceResponse>() {
+            placeResult.addOnCompleteListener(new OnCompleteListener<FindCurrentPlaceResponse>() {
                 @Override
                 public void onComplete(@NonNull Task<FindCurrentPlaceResponse> task) {
                     if (task.isSuccessful() && task.getResult() != null) {
@@ -356,8 +338,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
                         MapsFragment.this.openPlacesDialog();
-                    }
-                    else {
+                    } else {
                         Log.e(TAG, "Exception: %s", task.getException());
                     }
                 }
@@ -433,7 +414,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 lastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }

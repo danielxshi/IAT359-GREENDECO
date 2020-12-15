@@ -37,8 +37,6 @@ public class SitesFragment extends Fragment implements AdapterView.OnItemClickLi
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SettingsViewModel settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
-//        new ViewModelProvider(this).get(li.xiaoxu.greendeco.ui.settings.SettingsViewModel.class);
         //Inflate the layout for this fragment
         return inflater.inflate(R.layout.activity_sites, container, false);
     }
