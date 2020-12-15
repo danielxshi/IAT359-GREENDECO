@@ -47,13 +47,7 @@ public class ContactForm extends Activity {
                     intent.putExtra(Intent.EXTRA_SUBJECT, subject.getText().toString());
                     intent.putExtra(Intent.EXTRA_TEXT, body.getText().toString());
                     intent.setData(Uri.parse("mailto:"));
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(ContactForm.this, "There is no application that supports this action", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(ContactForm.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
                 }
             }
         });
