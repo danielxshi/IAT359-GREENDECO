@@ -34,9 +34,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
         //set on click listener
-        signup.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
+        signup.setOnClickListener(view -> {
 
 //                try {
 //                    if (mp.isPlaying()) {
@@ -46,42 +44,38 @@ public class WelcomeActivity extends AppCompatActivity {
 //                    } mp.start();
 //                } catch(Exception e) { e.printStackTrace(); }
 
-                String user = username.getText().toString();
-                String pass = password.getText().toString();
-                String repass = repassword.getText().toString();
+            String user = username.getText().toString();
+            String pass = password.getText().toString();
+            String repass = repassword.getText().toString();
 
-                if(user.equals("")||pass.equals("")||repass.equals(""))
-                    Toast.makeText(WelcomeActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
-                else{
-                    if(pass.equals(repass)){
-                        Boolean checkuser = DB.checkusername(user);
-                        if(checkuser==false){
-                            Boolean insert = DB.insertData(user, pass);
-                            if(insert==true){
-                                Toast.makeText(WelcomeActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(WelcomeActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
-                            }
+            if(user.equals("")||pass.equals("")||repass.equals(""))
+                Toast.makeText(WelcomeActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
+            else{
+                if(pass.equals(repass)){
+                    Boolean checkuser = DB.checkusername(user);
+                    if(checkuser==false){
+                        Boolean insert = DB.insertData(user, pass);
+                        if(insert==true){
+                            Toast.makeText(WelcomeActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(WelcomeActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
                         }
-                        else {
-                            Toast.makeText(WelcomeActivity.this, "User already exists! Please sign in", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(WelcomeActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
                     }
+                    else {
+                        Toast.makeText(WelcomeActivity.this, "User already exists! Please sign in", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(WelcomeActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
         //set on click listener
-        signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
+        signin.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
         });
     }
 }

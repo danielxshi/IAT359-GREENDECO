@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 import static li.xiaoxu.greendeco.R.layout.row;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -65,15 +64,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             typologyTextView = (TextView) itemView.findViewById(R.id.siteTypologyEntry);
             descriptionTextView = (TextView) itemView.findViewById(R.id.siteDescriptionEntry);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view){
-                    Intent i = new Intent(view.getContext(), ContactForm.class);
-                    String typologyText = ((TextView)view.findViewById(R.id.siteTypologyEntry)).getText().toString();
-                    i.putExtra("typology", typologyText + " Report");
-                    context.startActivity(i);
+            itemView.setOnClickListener(view -> {
+                Intent i = new Intent(view.getContext(), ContactForm.class);
+                String typologyText = ((TextView)view.findViewById(R.id.siteTypologyEntry)).getText().toString();
+                i.putExtra("typology", typologyText + " Report");
+                context.startActivity(i);
 
-                }
             });
             context = itemView.getContext();
 

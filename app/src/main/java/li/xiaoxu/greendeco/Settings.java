@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -174,49 +173,45 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         }
 
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            //implement this in class instead of creating new object
-            //save this to sharedpreferences to maintain selection
+        //implement this in class instead of creating new object
+//save this to sharedpreferences to maintain selection
+        radioGroup.setOnCheckedChangeListener((RadioGroup.OnCheckedChangeListener) (group, checkedId) -> {
 
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            int radioButtonID = group.getCheckedRadioButtonId();
+            View radioButton = group.findViewById(radioButtonID);
+            int position = group.indexOfChild(radioButton);
 
-                int radioButtonID = group.getCheckedRadioButtonId();
-                View radioButton = group.findViewById(radioButtonID);
-                int position = group.indexOfChild(radioButton);
+            RadioButton rb = (RadioButton) group.findViewById(checkedId);
+            if (null != rb && position == 0) {
+                auto = false;
+                Log.i(TAG, "position should be 0" + position);
 
-                RadioButton rb = (RadioButton) group.findViewById(checkedId);
-                if (null != rb && position == 0) {
-                    auto = false;
-                    Log.i(TAG, "position should be 0" + position);
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putInt(Position, position);
-                    editor.commit();
-                }
-
-                if (null != rb && position == 1) {
-                    Log.i(TAG, "position should be 1" + position);
-
-                    auto = false;
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putInt(Position, position);
-                    editor.commit();
-                }
-
-                if (null != rb && position == 2) {
-                    auto = true;
-
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putInt(Position, position);
-                    editor.commit();
-                }
-
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putInt(Position, position);
+                editor.commit();
             }
+
+            if (null != rb && position == 1) {
+                Log.i(TAG, "position should be 1" + position);
+
+                auto = false;
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putInt(Position, position);
+                editor.commit();
+            }
+
+            if (null != rb && position == 2) {
+                auto = true;
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putInt(Position, position);
+                editor.commit();
+            }
+
         });
     }
 

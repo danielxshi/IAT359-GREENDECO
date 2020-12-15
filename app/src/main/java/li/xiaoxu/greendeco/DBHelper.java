@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 //DBHelper for Sign Up
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DBNAME = "Login.db";
-
     public DBHelper(Context context) {
         super(context, "Login.db", null, 1);
     }

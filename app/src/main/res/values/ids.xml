@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <item name="my_RecyclerView" type="id"></item>
+    <item name="my_RecyclerView" type="id" />
 
-    <item name="btn_nav_map" type="id"></item>
-    <item name="btn_nav_home" type="id"></item>
+    <item name="btn_nav_map" type="id" />
+    <item name="btn_nav_home" type="id" />
 </resources>

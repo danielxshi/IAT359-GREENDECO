@@ -2,26 +2,16 @@ package li.xiaoxu.greendeco;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
 import static li.xiaoxu.greendeco.Constants.DATABASE_NAME;
-import static li.xiaoxu.greendeco.Constants.DATABASE_PATH;
-import static li.xiaoxu.greendeco.Constants.TABLE1_NAME;
 
 
 public class MyHelper extends SQLiteOpenHelper {

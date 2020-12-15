@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
@@ -33,48 +32,43 @@ public class LoginActivity extends AppCompatActivity {
         context = this;
         mp = MediaPlayer.create(context, R.raw.sound);
 
-        btnlogin.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+        btnlogin.setOnClickListener(v -> {
 
-                String user = username.getText().toString();
-                String pass = password.getText().toString();
+            String user = username.getText().toString();
+            String pass = password.getText().toString();
 
-                if(user.equals("")||pass.equals(""))
+            if(user.equals("")||pass.equals(""))
 
-                    Toast.makeText(LoginActivity.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
 
-                else{
-                    Boolean checkuserpass = DB.checkusernamepassword(user, pass);
-                    if(checkuserpass==true){
+            else{
+                Boolean checkuserpass = DB.checkusernamepassword(user, pass);
+                if(checkuserpass==true){
 
-                        try {
-                            if (mp.isPlaying()) {
-                                mp.stop();
-                                mp.release();
-                                mp = MediaPlayer.create(context, R.raw.sound);
-                            } mp.start();
-                        } catch(Exception e) { e.printStackTrace(); }
+                    try {
+                        if (mp.isPlaying()) {
+                            mp.stop();
+                            mp.release();
+                            mp = MediaPlayer.create(context, R.raw.sound);
+                        } mp.start();
+                    } catch(Exception e) { e.printStackTrace(); }
 
-                        Toast.makeText(LoginActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                    } else {
+                    Toast.makeText(LoginActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                } else {
 
-                        try {
-                            if (mp.isPlaying()) {
-                                mp.stop();
-                                mp.release();
-                                mp = MediaPlayer.create(context, R.raw.wrong);
-                            } mp.start();
-                        } catch(Exception e) { e.printStackTrace(); }
+                    try {
+                        if (mp.isPlaying()) {
+                            mp.stop();
+                            mp.release();
+                            mp = MediaPlayer.create(context, R.raw.wrong);
+                        } mp.start();
+                    } catch(Exception e) { e.printStackTrace(); }
 
-                        Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
                 }
             }
-
-
         });
     }
 }

@@ -52,9 +52,7 @@ public class SignupActivity extends AppCompatActivity {
         });
 
         //set on click listener
-        signup.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
+        signup.setOnClickListener(view -> {
 
 //                try {
 //                    if (mp.isPlaying()) {
@@ -64,50 +62,37 @@ public class SignupActivity extends AppCompatActivity {
 //                    } mp.start();
 //                } catch(Exception e) { e.printStackTrace(); }
 
-                String user = username.getText().toString();
-                String pass = password.getText().toString();
-                String repass = repassword.getText().toString();
+            String user = username.getText().toString();
+            String pass = password.getText().toString();
+            String repass = repassword.getText().toString();
 
-                if(user.equals("")||pass.equals("")||repass.equals(""))
-                    Toast.makeText(SignupActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
-                else{
-                    if(pass.equals(repass)){
-                        Boolean checkuser = DB.checkusername(user);
-                        if(checkuser==false){
-                            Boolean insert = DB.insertData(user, pass);
-                            if(insert==true){
+            if(user.equals("")||pass.equals("")||repass.equals(""))
+                Toast.makeText(SignupActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
+            else{
+                if(pass.equals(repass)){
+                    Boolean checkuser = DB.checkusername(user);
+                    if(checkuser==false){
+                        Boolean insert = DB.insertData(user, pass);
+                        if(insert==true){
 
-                                try {
-                                    if (mp.isPlaying()) {
-                                        mp.stop();
-                                        mp.release();
-                                        mp = MediaPlayer.create(context, R.raw.sound);
-                                    } mp.start();
-                                } catch(Exception e) { e.printStackTrace(); }
+                            try {
+                                if (mp.isPlaying()) {
+                                    mp.stop();
+                                    mp.release();
+                                    mp = MediaPlayer.create(context, R.raw.sound);
+                                } mp.start();
+                            } catch(Exception e) { e.printStackTrace(); }
 
-                                Toast.makeText(SignupActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
 
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                                editor.putInt(Position, 0);
-                                editor.commit();
+                            editor.putInt(Position, 0);
+                            editor.commit();
 
-                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                startActivity(intent);
-                            } else {
-
-                                try {
-                                    if (mp.isPlaying()) {
-                                        mp.stop();
-                                        mp.release();
-                                        mp = MediaPlayer.create(context, R.raw.wrong);
-                                    } mp.start();
-                                } catch(Exception e) { e.printStackTrace(); }
-
-                                Toast.makeText(SignupActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else {
+                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(intent);
+                        } else {
 
                             try {
                                 if (mp.isPlaying()) {
@@ -117,9 +102,10 @@ public class SignupActivity extends AppCompatActivity {
                                 } mp.start();
                             } catch(Exception e) { e.printStackTrace(); }
 
-                            Toast.makeText(SignupActivity.this, "User already exists! Please sign in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
+                    }
+                    else {
 
                         try {
                             if (mp.isPlaying()) {
@@ -129,24 +115,32 @@ public class SignupActivity extends AppCompatActivity {
                             } mp.start();
                         } catch(Exception e) { e.printStackTrace(); }
 
-                        Toast.makeText(SignupActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignupActivity.this, "User already exists! Please sign in", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+
+                    try {
+                        if (mp.isPlaying()) {
+                            mp.stop();
+                            mp.release();
+                            mp = MediaPlayer.create(context, R.raw.wrong);
+                        } mp.start();
+                    } catch(Exception e) { e.printStackTrace(); }
+
+                    Toast.makeText(SignupActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
         //set on click listener
-        signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                SharedPreferences.Editor editor = sharedpreferences.edit();
+        signin.setOnClickListener(view -> {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                editor.putInt(Position, 0);
-                editor.commit();
+            editor.putInt(Position, 0);
+            editor.commit();
 
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
         });
     }
 

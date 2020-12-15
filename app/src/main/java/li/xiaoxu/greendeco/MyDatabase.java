@@ -1,14 +1,10 @@
 package li.xiaoxu.greendeco;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Button;
 
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
@@ -44,7 +40,7 @@ public class MyDatabase {
         Cursor cursor = db.rawQuery(queryString, null); //TODO
 
 //        StringBuffer buffer = new StringBuffer();
-        ArrayList<String> mArrayList = new ArrayList<String>();
+        ArrayList<String> mArrayList = new ArrayList<>();
         while (cursor.moveToNext()) {
             int index1 = cursor.getColumnIndex(Constants.ADDRESS);
             int index2 = cursor.getColumnIndex(Constants.TYPOLOGY);
@@ -73,7 +69,7 @@ public class MyDatabase {
         Cursor cursor = db.rawQuery(queryString, selection);
 
 //        StringBuffer buffer = new StringBuffer();
-        ArrayList<String> mArrayList = new ArrayList<String>();
+        ArrayList<String> mArrayList = new ArrayList<>();
         while (cursor.moveToNext()) {
 
             int index0 = cursor.getColumnIndex(FID);
