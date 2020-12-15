@@ -1,4 +1,4 @@
-package li.xiaoxu.greendeco;
+package li.xiaoxu.greendeco.ui.settings;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,41 +7,36 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
-import li.xiaoxu.greendeco.ui.maps.MapsFragment;
+import li.xiaoxu.greendeco.R;
+import li.xiaoxu.greendeco.SignupActivity;
+
+import static android.content.Context.SENSOR_SERVICE;
 
 
-public class Settings extends AppCompatActivity implements SensorEventListener {
+public class SettingsFragment extends Fragment implements SensorEventListener {
 
-//    testing
-    private static final String TAG = "MyActivity";
-
-    private boolean setDarkTheme = false;
-
-    Button btn_nav_home;
-    Button btn_nav_map;
-    static final int REQUEST_CODE_ENTRY = 0;
+    private static final String TAG = "Settings";
 
     private SensorManager mySensorManager;
     private Sensor myLight;
-    private Button button, button2;
 
     EditText name, email;
-
-    MediaPlayer mp;
-    Context context;
 
     public static final String MyPROFILE = "MyProfile" ;
     public static final String Name = "nameKey";
@@ -56,73 +51,36 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     int g = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        SettingsViewModel settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+//        new ViewModelProvider(this).get(li.xiaoxu.greendeco.ui.settings.SettingsViewModel.class);
+        //Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_settings, container, false);
+        }
 
-        context = this;
-        mp = MediaPlayer.create(context, R.raw.sound);
-
-        //Implicit Intent to GI Website
-        btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
-        btn_nav_home.setOnClickListener((v)->{
-            finish();
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
-        });
-
-        //Implicit Intent to GI Website
-        btn_nav_map = (Button) findViewById(R.id.btn_nav_map);
-        btn_nav_map.setOnClickListener((v)->{
-            finish();
-            Intent i = new Intent(this, MapsFragment.class);
-            startActivity(i);
-        });
-
-        //Implicit Intent to GI Website
-        btn_nav_map = (Button) findViewById(R.id.btn_nav_sites);
-        btn_nav_map.setOnClickListener((v)->{
-            finish();
-            Intent i = new Intent(this, SitesActivity.class);
-            startActivity(i);
-        });
-
-        //Implicit Intent to settings
-        btn_nav_map = (Button) findViewById(R.id.btn_nav_set);
-        btn_nav_map.setOnClickListener((v)->{
-            finish();
-            Intent i = new Intent(this, Settings.class);
-            startActivity(i);
-        });
-
-        mySensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mySensorManager = (SensorManager) getActivity().getSystemService(SENSOR_SERVICE);
         myLight = mySensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
-        name = (EditText)findViewById(R.id.editTextName);
-        email = (EditText)findViewById(R.id.editTextEmail);
+        name = (EditText)getView().findViewById(R.id.editTextName);
+        email = (EditText)getView().findViewById(R.id.editTextEmail);
 
-        sharedpreferences = getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
+        sharedpreferences = getActivity().getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
         String channel1 = (sharedpreferences.getString(Name, ""));
         name.setText(channel1);
 
-        sharedpreferences = getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
+        sharedpreferences = getActivity().getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
         String channel2 = (sharedpreferences.getString(Email, ""));
         email.setText(channel2);
 
-        sharedpreferences = getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
+        sharedpreferences = getActivity().getSharedPreferences(MyPROFILE, Context.MODE_PRIVATE);
         g = (sharedpreferences.getInt(Position, 0));
 
-        button = (Button) findViewById(R.id.button);
+        Button button = (Button) getView().findViewById(R.id.button);
         button.setOnClickListener((v)->{
-
-            try {
-                if (mp.isPlaying()) {
-                    mp.stop();
-                    mp.release();
-                    mp = MediaPlayer.create(context, R.raw.sound);
-                } mp.start();
-            } catch(Exception e) { e.printStackTrace(); }
-
             String n = name.getText().toString();
             String e = email.getText().toString();
             Integer gi = g;
@@ -136,7 +94,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 
         });
 
-        button2 = (Button) findViewById(R.id.button2);
+        Button button2 = (Button) getView().findViewById(R.id.button2);
         button2.setOnClickListener((v)->{
 
             SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -150,13 +108,13 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 
-            Intent i = new Intent(this, SignupActivity.class);
+            Intent i = new Intent(getActivity(), SignupActivity.class);
             startActivity(i);
 
         });
 
 
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup = (RadioGroup) getView().findViewById(R.id.radioGroup);
 
         if (g == 0) {
             auto = false;
@@ -220,15 +178,14 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
         });
     }
 
-
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         mySensorManager.registerListener(this, myLight, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         mySensorManager.unregisterListener(this);
         super.onPause();
     }
@@ -252,10 +209,9 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 //
 //            lightEditText.setText("Light Sensor: " + vals[0]);
 
-            if (auto == true) {
+            if (auto) {
                 if (vals[0] > 1000) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    setDarkTheme = true;
                 }
                 else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -267,14 +223,6 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
-    }
-
-    public boolean isSetDarkTheme() {
-        return setDarkTheme;
-    }
-
-    public void setSetDarkTheme(boolean setDarkTheme) {
-        this.setDarkTheme = setDarkTheme;
     }
 
 }

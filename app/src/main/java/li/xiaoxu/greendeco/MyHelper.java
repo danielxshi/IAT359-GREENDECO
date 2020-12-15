@@ -1,6 +1,7 @@
 package li.xiaoxu.greendeco;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,98 +29,36 @@ public class MyHelper extends SQLiteOpenHelper {
     private Context context;
 
     public MyHelper(Context context){
-        super (context, DATABASE_NAME, null, Constants.DATABASE_VERSION);
+        super (context, copyDatabaseBeforeCreation(context, DATABASE_NAME), null, Constants.DATABASE_VERSION);
         this.context = context;
     }
 
-    /*
-    Code from StackOverFlow
-    https://stackoverflow.com/questions/22627215/how-to-put-database-and-read-database-from-assets-folder-android-which-are-creat/22627776
-    createDatabase()
-    checkDatabase()
-    copyDatabase()
-     */
-
-    //Check database already exist or not
-    private boolean checkDatabase() {
-        boolean checkDB = false;
-        try {
-            String myPath = DATABASE_PATH + DATABASE_NAME;
-            File dbFile = new File(myPath);
-            checkDB = dbFile.exists();
-        }
-        catch(SQLiteException e) {
-        }
-        return checkDB;
-    }
-
-    public void createDatabase() throws Exception {
-        boolean dbExist = checkDatabase();
-        if(dbExist) {
-            Log.v("DB Exists", "db exists");
-            // By calling this method here onUpgrade will be called on a
-            // writeable database, but only if the version number has been
-            // bumped
-            //onUpgrade(myDataBase, DATABASE_VERSION_old, DATABASE_VERSION);
-        }
-
-        boolean dbExist2 = checkDatabase();
-        if(!dbExist2) {
-            this.getReadableDatabase();
-            try
-            {
-                this.close();
-                copyDataBase();
-            }
-            catch (Exception e)
-            {
-                throw new Error("Error copying database");
-            }
-        }
-    }
-    //Copies your database from your local assets-folder to the just created empty database in the system folder
-    private void copyDataBase() throws IOException {
-        InputStream mInput = context.getAssets().open(DATABASE_NAME);
-        String outFileName = DATABASE_PATH + DATABASE_NAME;
-        OutputStream mOutput = new FileOutputStream(outFileName);
-        byte[] mBuffer = new byte[2024];
-        int mLength;
-        while ((mLength = mInput.read(mBuffer)) > 0) {
-            mOutput.write(mBuffer, 0, mLength);
-        }
-        mOutput.flush();
-        mOutput.close();
-        mInput.close();
-    }
-
-    //delete database
-    public void deleteDatabase()
-    {
-        File file = new File(DATABASE_PATH + DATABASE_NAME);
-        if(file.exists())
-        {
-            file.delete();
-            System.out.println("delete database file.");
-        }
-    }
+   public static String copyDatabaseBeforeCreation (Context context, String name) {
+       File databasePath = context.getDatabasePath(name);
+       if (!databasePath.exists()) {
+           AssetManager assets = context.getAssets();
+           try (InputStream inputStream = assets.open(name); //source
+                OutputStream outputStream = new FileOutputStream(databasePath)){ //output to device data folder
+               //copy the database to device
+               byte[] buffer = new byte[8192]; //variable starts with "m" means number variable
+               int mLength;
+               while ((mLength = inputStream.read(buffer)) > 0) {
+                   outputStream.write(buffer, 0, mLength);
+               }
+           } catch (IOException e){
+               throw new RuntimeException(e);
+           }
+       }
+       return name;
+   }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        try {
-            createDatabase();
-            Toast.makeText(context, "onCreate() called", Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            Toast.makeText(context, "exception onCreate() db", Toast.LENGTH_LONG).show();
-        }
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (newVersion > oldVersion) {
-            Log.v("Database Upgrade", "Database version higher than old.");
-            Toast.makeText(context, "onUpgrade called", Toast.LENGTH_LONG).show();
-            deleteDatabase();
-        }
-    }
 
+    }
 }

@@ -194,6 +194,7 @@
     <string name="dark_md">Dark Mode</string>
     <string name="auto_md">Auto Mode</string>
     <string name="name_field">Name: </string>
+    <string name="email">Email: </string>
     <string name="save_prof">Save Profile </string>
     <string name="web_button">Website </string>
     <string name="emailHint">Email</string>
@@ -202,5 +203,4 @@
     <string name="emailBtn">SEND</string>
     <string name="mailHeader">Contact Form</string>
 
-    >>>>>>> Stashed changes
 </resources>

@@ -4,88 +4,62 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.NavHost;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-/*
-MainActivity:
-Glossary - RecyclerView
-(List of Words)
- */
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import li.xiaoxu.greendeco.ui.home.HomeFragment;
+import li.xiaoxu.greendeco.ui.maps.MapsFragment;
+import li.xiaoxu.greendeco.ui.settings.SettingsFragment;
+import li.xiaoxu.greendeco.ui.sites.SitesFragment;
+
 public class MainActivity extends AppCompatActivity {
 
-    //Recycler GI Education Cards
-    RecyclerView recyclerView;
-    Settings setting;
-
-    String s1[], s2[];
-    int images[] = {R.drawable.home, R.drawable.content1};
-
-    Button btn_nav_home;
-    Button btn_nav_map;
-    static final int REQUEST_CODE_ENTRY = 0;
-
+    //https://www.akshayrana.in/2020/07/bottom-navigation-bar-in-android.html
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //RecyclerView GI Education cards
-        recyclerView = findViewById(R.id.my_RecyclerView);
-        
-        s1 = getResources().getStringArray(R.array.green_title);
-        s2 = getResources().getStringArray(R.array.educ_description);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHostFragment.getNavController();
 
-        HomeAdapter homeAdapter = new HomeAdapter(this, s1, s2, images);
-        recyclerView.setAdapter(homeAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        bottomNav.setOnNavigationItemSelectedListener(item -> {
 
-        //Explicit intent to home page
-        btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
-        btn_nav_home.setOnClickListener((v)->{
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
-        });
+            switch (item.getItemId()) {
 
-        //Explicit intent to map page
-        btn_nav_map = (Button) findViewById(R.id.btn_nav_map);
-        btn_nav_map.setOnClickListener((v)->{
-            finish();
-            Intent i = new Intent(this, MapsMarkerActivity.class);
-            startActivity(i);
-        });
+                case R.id.navigation_home:
+                    navController.navigate(R.id.navigation_home);
+                    return true;
 
-        //Explicit Intent to GI sites
-        btn_nav_map = (Button) findViewById(R.id.btn_nav_sites);
-        btn_nav_map.setOnClickListener((v)->{
-            finish();
-            Intent i = new Intent(this, SitesActivity.class);
-            startActivity(i);
-        });
+                case R.id.navigation_sites:
+                    navController.navigate(R.id.navigation_sites);
+                    return true;
 
-        //Explicit Intent to settings
-        btn_nav_map = (Button) findViewById(R.id.btn_nav_set);
-        btn_nav_map.setOnClickListener((v)->{
-            finish();
-            Intent i = new Intent(this, Settings.class);
-            startActivity(i);
-        });
-    }
+                case R.id.navigation_maps:
+                    navController.navigate(R.id.navigation_maps);
+                    return true;
 
-    @Override
-    protected void onActivityResult(int rqCode, int rsCode, Intent data){
-        if(rqCode==REQUEST_CODE_ENTRY){
-            if(rsCode==RESULT_OK){
-                Uri webpage = Uri.parse("https://www.google.com");
-                Intent webIntent = new Intent(Intent.ACTION_VIEW,webpage);
-                startActivity(webIntent);
+                case R.id.navigation_settings:
+                    navController.navigate(R.id.navigation_settings);
+                    return true;
             }
-        }
-        super.onActivityResult(rqCode, rsCode, data);
+            return false;
+        });
     }
 }
