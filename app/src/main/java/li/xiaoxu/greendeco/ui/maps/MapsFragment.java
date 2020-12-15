@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +115,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         // Build the map.
         // [START maps_current_place_map_fragment]
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         // [END maps_current_place_map_fragment]
@@ -141,9 +142,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      * @param menu The options menu.
      * @return Boolean.
      */
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.current_place_menu, menu);
-        return true;
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.current_place_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     /**
@@ -152,13 +153,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      * @return Boolean.
      */
     // [START maps_current_place_on_options_item_selected]
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.option_get_place) {
-            showCurrentPlace();
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == R.id.option_get_place) {
+//            showCurrentPlace();
+//        }
+//        return true;
+//    }
     // [END maps_current_place_on_options_item_selected]
 
     /**
