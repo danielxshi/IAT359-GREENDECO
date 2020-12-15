@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="GRI Sites"
+        android:text="GI Sites"
         android:textAlignment="center"
         android:textFontWeight="500"
         android:textSize="25sp"
