@@ -28,6 +28,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
 //    testing
     private static final String TAG = "MyActivity";
 
+    private boolean setDarkTheme = false;
 
     Button btn_nav_home;
     Button btn_nav_map;
@@ -254,6 +255,7 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
             if (auto == true) {
                 if (vals[0] > 1000) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    setDarkTheme = true;
                 }
                 else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -265,6 +267,14 @@ public class Settings extends AppCompatActivity implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    public boolean isSetDarkTheme() {
+        return setDarkTheme;
+    }
+
+    public void setSetDarkTheme(boolean setDarkTheme) {
+        this.setDarkTheme = setDarkTheme;
     }
 
 }
