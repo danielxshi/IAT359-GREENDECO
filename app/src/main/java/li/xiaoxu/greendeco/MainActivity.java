@@ -1,11 +1,14 @@
 package li.xiaoxu.greendeco;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Recycler GI Education Cards
     RecyclerView recyclerView;
+    Settings setting;
 
     String s1[], s2[];
     int images[] = {R.drawable.home, R.drawable.content1};
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         //RecyclerView GI Education cards
         recyclerView = findViewById(R.id.my_RecyclerView);
-
+        
         s1 = getResources().getStringArray(R.array.green_title);
         s2 = getResources().getStringArray(R.array.educ_description);
 
@@ -44,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         //Explicit intent to home page
         btn_nav_home = (Button) findViewById(R.id.btn_nav_home);
         btn_nav_home.setOnClickListener((v)->{
-            Intent i = new Intent(this, ContactForm.class);
+            Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         });
 

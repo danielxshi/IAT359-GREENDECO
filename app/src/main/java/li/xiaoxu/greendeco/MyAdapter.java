@@ -68,7 +68,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view){
-                    context.startActivity(new Intent(view.getContext(), ContactForm.class));
+                    Intent i = new Intent(view.getContext(), ContactForm.class);
+                    String typologyText = ((TextView)view.findViewById(R.id.siteTypologyEntry)).getText().toString();
+                    i.putExtra("typology", typologyText + " Report");
+                    context.startActivity(i);
+
                 }
             });
             context = itemView.getContext();

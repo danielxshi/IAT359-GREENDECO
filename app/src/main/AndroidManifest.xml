@@ -71,6 +71,9 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".ContactForm"
+            android:label="Contact" />
+        <activity
             android:name=".MapsMarkerActivity"
             android:label="@string/title_activity_maps" />
         <activity
