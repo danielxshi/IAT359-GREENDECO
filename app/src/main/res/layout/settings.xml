@@ -4,11 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".Settings"
-    android:id="@+id/bigLayout">
+    tools:context=".Settings">
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -27,7 +25,6 @@
 <!--                    android:longClickable="false" />-->
 
             <TextView
-                android:id="@+id/settinglabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -68,7 +65,6 @@
                 </RadioGroup>
 
                 <TextView
-                    android:id="@+id/textName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/name_field"
@@ -86,7 +82,6 @@
                     android:layout_marginRight="30dp" />
 
                 <TextView
-                    android:id="@+id/textEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/email_field"
@@ -124,7 +119,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
