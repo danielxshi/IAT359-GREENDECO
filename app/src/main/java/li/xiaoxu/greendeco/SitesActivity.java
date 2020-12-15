@@ -44,7 +44,6 @@ public class SitesActivity extends AppCompatActivity implements AdapterView.OnIt
         myAdapter = new MyAdapter(mArrayList);
         myRecycler.setAdapter(myAdapter);
 
-//        Toast.makeText(this, "row " + 1 + ":  " + siteAddressTextView.getText() + " " + siteTypologyTextView.getText() + " " + siteDescriptionTextView.getText(), Toast.LENGTH_LONG).show();
     }
 
     @Override

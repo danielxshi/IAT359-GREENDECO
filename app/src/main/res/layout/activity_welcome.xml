@@ -11,7 +11,7 @@
         android:id="@+id/welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="8dp"
         android:text="Welcome"
         android:textAlignment="center"
         android:textFontWeight="500"
@@ -51,6 +51,7 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         android:layout_below="@+id/passwordlabel"
         android:hint="Type your password"
         android:layout_marginLeft="30dp"
@@ -122,7 +123,9 @@
         android:layout_marginTop="0dp"
         android:text="@string/web_button"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
+        android:layout_marginRight="30dp"
+
+        />
 
 
 
