@@ -126,8 +126,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         // Build the map.
         // [START maps_current_place_map_fragment]
-        SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);
+
+        //https://stackoverflow.com/questions/25051246/how-to-use-supportmapfragment-inside-a-fragment
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         // [END maps_current_place_map_fragment]
         // [END_EXCLUDE]
